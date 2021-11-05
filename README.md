@@ -12,4 +12,6 @@ As output of your learning on Bootcamp you should have 3 branches:
 1. rpgsaga
 1. onlineshop (should be default branch)
 
+Also each issue in the project must have a comment with sign off from reviewer that task is fully done.
+
 ## Good Luck!
