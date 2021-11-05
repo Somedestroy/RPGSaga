@@ -1,2 +1,2 @@
-# Mentee Project Template
+# Mentee Project
 
