@@ -12,6 +12,8 @@ As output of your learning on Bootcamp you should have 3 branches:
 1. rpgsaga
 1. onlineshop (should be default branch)
 
+Good Luck!
+
 ### How to Export this Template 
 1. Settings->Advanced->[Export Project](https://gitlab.akvelon.net:9443/bootcamp/mentee-project-template/export)
 1. Settings->Advanced->[Download Export](https://gitlab.akvelon.net:9443/bootcamp/mentee-project-template/download_export)
