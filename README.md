@@ -7,10 +7,21 @@ This project is your Portfolio: your future interviewer will take a look at that
 
 If you have any blockers or questions please feel free to ping both Bootcamp LT or PT Mentor (depends on what task you are currently doing).
 
-As output of your learning on Bootcamp you should have 3 branches:
+As output of your learning on Bootcamp you should have 3 folders:
 1. codewars 
 1. rpgsaga
-1. onlineshop (should be default branch)
+1. onlineshop
+
+For RpgSaga and online shop we have following templates
+RpgSaga: 
+- [Python](https://gitlab.akvelon.net:9443/bootcamp/rpgsagapython)
+- [NodeJs](https://gitlab.akvelon.net:9443/bootcamp/rpgsagats)
+- [.Net](https://gitlab.akvelon.net:9443/bootcamp/rpgsaganetcore)
+
+Online Shop:
+- [.Net](https://gitlab.akvelon.net:9443/bootcamp/net-react-template)
+- [NodeJs](https://gitlab.akvelon.net:9443/bootcamp/nest-react-template)
+- [Python](https://gitlab.akvelon.net:9443/bootcamp/python-react-template)
 
 Also each issue in the project must have a comment with sign off from reviewer that task is fully done.
 
