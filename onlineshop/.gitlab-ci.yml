@@ -1,0 +1,4 @@
+build-shop:
+  stage: build_shop
+  script:
+    - echo "Hello onlineshop steps"

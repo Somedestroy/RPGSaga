@@ -1,0 +1,7 @@
+stages:
+  - build_saga
+  - build_shop
+
+include:
+  - local: /rpgsaga/.gitlab-ci.yml
+  - local: /onlineshop/.gitlab-ci.yml
