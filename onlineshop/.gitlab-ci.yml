@@ -2,3 +2,7 @@ build-shop:
   stage: build_shop
   script:
     - echo "Hello onlineshop steps"
+  rules:
+  - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    changes:
+      - onlineshop/**/*

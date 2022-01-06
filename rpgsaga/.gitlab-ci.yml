@@ -2,3 +2,7 @@ build-saga:
   stage: build_saga
   script:
     - echo "Hello rpgsaga steps"
+  rules:
+  - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    changes:
+      - rpgsaga/**/*
