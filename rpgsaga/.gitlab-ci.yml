@@ -1,0 +1,4 @@
+build-saga:
+  stage: build_saga
+  script:
+    - echo "Hello rpgsaga steps"
