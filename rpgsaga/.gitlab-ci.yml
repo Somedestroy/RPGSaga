@@ -1,8 +1,12 @@
-build-saga:
-  stage: build_saga
+test_saga:
+  image: mcr.microsoft.com/dotnet/sdk:5.0
+  tags:
+    - docker
+  stage: test_saga
   script:
-    - echo "Hello rpgsaga steps"
+    - cd rpgsaga/RpgSaga.Tests
+    - dotnet test
   rules:
-  - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-    changes:
-      - rpgsaga/**/*
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - rpgsaga/**/*

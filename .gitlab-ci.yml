@@ -1,6 +1,7 @@
 stages:
-  - build_saga
-  - build_shop
+  - test_saga
+  - lint_shop
+  - test_shop
 
 include:
   - local: /rpgsaga/.gitlab-ci.yml
