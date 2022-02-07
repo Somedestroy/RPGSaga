@@ -1,8 +1,28 @@
-build-shop:
-  stage: build_shop
+
+eslint:
+  image: node
+  tags:
+    - docker
+  stage: lint_shop
   script:
-    - echo "Hello onlineshop steps"
+    - cd onlineshop
+    - npm install -g lerna
+    - lerna bootstrap --hoist
+    - npm run lint
   rules:
-  - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-    changes:
-      - onlineshop/**/*
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - onlineshop/client/**/*
+
+test_shop:
+  image: mcr.microsoft.com/dotnet/sdk:5.0
+  tags:
+    - docker
+  stage: test_shop
+  script:
+    - cd onlineshop/server/WebApi.Tests
+    - dotnet test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - onlineshop/server/**/*
