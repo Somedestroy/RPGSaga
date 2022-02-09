@@ -24,5 +24,6 @@ Online Shop:
 - [Python](https://gitlab.akvelon.net:9443/bootcamp/python-react-template)
 
 Also each issue in the project must have a comment with sign off from reviewer that task is fully done.
+Addd some strings
 
 ## Good Luck!
