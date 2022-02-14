@@ -9,7 +9,7 @@ public class ValidParantheses
             {
                 count++;
             }
-            else if (input[j] == ')')
+            else if (input[i] == ')')
             {
                 count --;
             }
