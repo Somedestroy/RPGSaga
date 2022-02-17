@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -12,11 +12,20 @@
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>../_stylecop/stylecop.ruleset</CodeAnalysisRuleSet> 
-    <GenerateFullPaths>true</GenerateFullPaths>
+    <GenerateFullPaths>true</GenerateFullPaths> 
+    <AssemblyName>RpgSagaConsoleApp</AssemblyName> 
+    <RootNamespace>RpgSaga</RootNamespace> 
+    <Version>1.0.0</Version> 
+    <AssemblyVersion>1.0.1.0</AssemblyVersion> 
+    <FileVersion>1.0.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="../_stylecop/stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RPGSaga.Core\RPGSaga.Core.csproj" />
   </ItemGroup>
 
 </Project>
