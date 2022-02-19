@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace RPGSaga.Core
+﻿namespace RPGSaga.Core
 {
+    using System;
+
     public class Duel
     {
         public T StartDuel<T>(T hero1, T hero2)
@@ -14,13 +14,41 @@ namespace RPGSaga.Core
 
             while (hero1.HealthPoints > 0 && hero2.HealthPoints > 0)
             {
-                hero1.Attack(hero2);
-                Console.WriteLine($"{hero1.Name} deals {hero1.Damage} to {hero2.Name}");
-                hero2.Attack(hero1);
-                Console.WriteLine($"{hero2.Name} deals {hero2.Damage} to {hero1.Name}");
+                hero1.ApplyEffects();
+                if (hero1.HealthPoints <= 0 || hero2.HealthPoints <= 0)
+                {
+                    break;
+                }
+
+                if (!hero1.SkipTurn && !hero2.UsedAbility(hero1))
+                {
+                    hero2.Attacked(hero1);
+                }
+
+                hero2.ApplyEffects();
+                if (hero1.HealthPoints <= 0 || hero2.HealthPoints <= 0)
+                {
+                    break;
+                }
+
+                if (!hero2.SkipTurn && !hero1.UsedAbility(hero2))
+                {
+                    hero1.Attacked(hero2);
+                }
+
+                if (hero1.HealthPoints <= 0 || hero2.HealthPoints <= 0)
+                {
+                    break;
+                }
             }
 
-            if (hero1.HealthPoints == 0)
+            return Refresh(hero1, hero2, firstHeroHealth, secondHeroHealth);
+        }
+
+        private T Refresh<T>(T hero1, T hero2, int firstHeroHealth, int secondHeroHealth)
+            where T : Hero
+        {
+            if (hero1.HealthPoints <= 0)
             {
                 Console.WriteLine($"{hero2.Name} win duel");
                 hero2.Regeneration(secondHeroHealth);
@@ -34,6 +62,7 @@ namespace RPGSaga.Core
                 Game.RoundCounter++;
                 return hero1;
             }
+
         }
     }
 }

@@ -1,25 +1,16 @@
 ﻿namespace RPGSaga.Core
 {
+    using System.Collections.Generic;
+    using RpgSaga.Abilities;
+    using RpgSaga.Interfaces;
+
     public class Wizard : Hero
     {
-        public Wizard(string name, int healthPoint, int manaPool, int damage)
-            : base(name, healthPoint, manaPool, damage)
+        public Wizard(string name, int healthPoint, int damage)
+            : base(name, healthPoint, damage)
         {
+            ListOfAbilities = new List<IAbility>() { new ColdEmbrace() };
         }
 
-        public void UseAbility()
-        {
-            //...
-        }
-
-        public void Attack(Hero enemyHero)
-        {
-            enemyHero.HealthPoints -= this.Damage;
-        }
-
-        public void Regenaration(int healtpoints)
-        {
-            this.HealthPoints = healtpoints;
-        }
     }
 }

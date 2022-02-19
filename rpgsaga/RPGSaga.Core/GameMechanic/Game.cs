@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace RPGSaga.Core
+﻿namespace RPGSaga.Core
 {
+    using System;
+    using System.Collections.Generic;
+
     public static class Game
     {
-        public static Random Rand { get; }
+        public static Random Rand;
 
-        private static NamesGenerator namesGenerator;
+        public static NamesGenerator namesGenerator;
 
         private static List<Hero> heroesList;
+
+        private static Round round;
 
         public static int RoundCounter { get; set; }
 
@@ -18,12 +20,12 @@ namespace RPGSaga.Core
             Rand = new Random();
             heroesList = new List<Hero>();
             namesGenerator = new NamesGenerator();
+            round = new Round();
             RoundCounter = 1;
         }
 
         public static void Run()
         {
-            Round round = new Round();
             round.CreatePairs(CreateRandomHeroes(GetHeroesNumber()));
         }
 
@@ -52,17 +54,17 @@ namespace RPGSaga.Core
         {
             for (int index = 0; index < heroesNumber; index++)
             {
-                switch (Rand.Next(1,3))
+                switch (Rand.Next(1, 3))
                 {
 
                     case 1:
-                        heroesList.Add(new Knight(namesGenerator.GetHeroName(), Rand.Next(150, 180), Rand.Next(20, 30), Rand.Next(30, 40)));
+                        heroesList.Add(new Knight(namesGenerator.GetHeroName(), Rand.Next(150, 180), Rand.Next(30, 40)));
                         break;
                     case 2:
-                        heroesList.Add(new Wizard(namesGenerator.GetHeroName(), Rand.Next(90, 120), Rand.Next(80, 95), Rand.Next(15, 25)));
+                        heroesList.Add(new Wizard(namesGenerator.GetHeroName(), Rand.Next(90, 120), Rand.Next(15, 25)));
                         break;
                     case 3:
-                        heroesList.Add(new Archer(namesGenerator.GetHeroName(), Rand.Next(120, 140), Rand.Next(40, 50), Rand.Next(20, 35)));
+                        heroesList.Add(new Archer(namesGenerator.GetHeroName(), Rand.Next(120, 140), Rand.Next(20, 35)));
                         break;
                 }
             }

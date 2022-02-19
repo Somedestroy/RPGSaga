@@ -5,7 +5,12 @@
 
     public class Round
     {
-        public Duel duel = new Duel();
+        private Duel duel;
+
+        public Round()
+        {
+            duel = new Duel();
+        }
 
         public void CreatePairs(List<Hero> heroesList)
         {
@@ -15,6 +20,7 @@
                 Console.WriteLine($"Winner is {heroesList[0]}");
                 return;
             }
+
             while (heroesList.Count != 0)
             {
                 if ((heroesList.Count % 2) != 0)
@@ -33,7 +39,6 @@
                 heroesList.RemoveAt(secondIndex);
 
                 winnersList.Add(duel.StartDuel(firstHero, secondHero));
-
             }
 
             CreatePairs(winnersList);
