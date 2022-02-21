@@ -1,26 +1,15 @@
 ﻿namespace RPGSaga.Core
 {
+    using System.Collections.Generic;
+    using RpgSaga.Abilities;
+    using RpgSaga.Interfaces;
+
     public class Archer : Hero
     {
-        public Archer(string name, int healthPoint, int manaPool, int damage)
-            : base(name, healthPoint, manaPool, damage)
+        public Archer(string name, int healthPoint, int damage)
+            : base(name, healthPoint, damage)
         {
-        }
-
-        public void UseAbility()
-
-        {
-            //...
-        }
-
-        public void Attack(Hero enemyHero)
-        {
-            enemyHero.HealthPoints -= this.Damage;
-        }
-
-        public void Regenaration(int healtpoints)
-        {
-            this.HealthPoints = healtpoints;
+            ListOfAbilities = new List<IAbility>() { new BurningArrows("Burning Arrows", 34, 100, 1) };
         }
     }
 }
