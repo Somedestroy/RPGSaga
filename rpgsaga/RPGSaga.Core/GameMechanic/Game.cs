@@ -7,11 +7,11 @@
     {
         public static Random Rand;
 
-        public static NamesGenerator namesGenerator;
+        private static NamesGenerator namesGenerator;
 
         private static List<Hero> heroesList;
 
-        public static Round round;
+        private static Round round;
 
         public static int RoundCounter { get; set; }
 
@@ -50,26 +50,34 @@
             return inputNumber;
         }
 
+        public enum HeroTypes
+        {
+            Knight = 1,
+            Wizard = 2,
+            Archer = 3,
+        }
+
         public static List<Hero> CreateRandomHeroes(int heroesNumber)
         {
+            var values = Enum.GetValues(typeof(HeroTypes));
             for (int index = 0; index < heroesNumber; index++)
             {
-                switch (Rand.Next(1, 3))
+                switch ((HeroTypes)Rand.Next(1, values.Length))
                 {
 
-                    case 1:
-                        heroesList.Add(new Knight(namesGenerator.GetHeroName(), Rand.Next(150, 180), Rand.Next(30, 40)));
+                    case HeroTypes.Knight:
+                        heroesList.Add(new Knight(namesGenerator.GetHeroName(), Rand.Next(150, 180), Rand.Next(15, 19)));
                         break;
-                    case 2:
-                        heroesList.Add(new Wizard(namesGenerator.GetHeroName(), Rand.Next(90, 120), Rand.Next(15, 25)));
+                    case HeroTypes.Wizard:
+                        heroesList.Add(new Wizard(namesGenerator.GetHeroName(), Rand.Next(90, 120), Rand.Next(10, 15)));
                         break;
-                    case 3:
-                        heroesList.Add(new Archer(namesGenerator.GetHeroName(), Rand.Next(120, 140), Rand.Next(20, 35)));
+                    case HeroTypes.Archer:
+                        heroesList.Add(new Archer(namesGenerator.GetHeroName(), Rand.Next(120, 140), Rand.Next(13, 17)));
                         break;
                 }
             }
 
-            Console.WriteLine("Heroes was successfully created");
+            Console.WriteLine("Heroes were successfully created");
             return heroesList;
         }
     }

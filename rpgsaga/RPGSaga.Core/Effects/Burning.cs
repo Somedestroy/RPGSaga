@@ -1,28 +1,10 @@
 ﻿namespace RpgSaga.Effects
 {
-    using RpgSaga.Interfaces;
-
-    public class Burning : IEffect
+    public class Burning : BaseEffect
     {
-        public string EffectName { get; } = "Burning";
-
-        public int Duration { get; set; } = 1;
-
-        public int PermanentDamage { get; } = 15;
-
-        public bool SkipTurn { get; } = false;
-
-        public bool SelfEffect { get; } = false;
-
-        public bool UseEffect()
+        public Burning(string effectName, int duration, int permanentDamage, bool skipTurn, bool selfEffect)
+             : base(effectName, duration, permanentDamage, skipTurn, selfEffect)
         {
-            if (Duration > 0)
-            {
-                Duration--;
-                return true;
-            }
-
-            return false;
         }
     }
 }

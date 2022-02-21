@@ -33,6 +33,11 @@
             Console.WriteLine($"{enemyHero.Name} deals {enemyHero.Damage} to {Name}");
         }
 
+        public bool IsAlive()
+        {
+            return HealthPoints > 0 ? true : false;
+        }
+
         public bool UsedAbility(Hero enemyHero)
         {
             if (enemyHero.ListOfAbilities == null)
@@ -53,29 +58,6 @@
             Console.WriteLine($"{enemyHero.Name} applies {ability.AbilityName} and deals {ability.Damage} damage");
             HealthPoints -= ability.Damage;
             return true;
-        }
-
-        private void AddEffect(IAbility ability, Hero enemyHero)
-        {
-            foreach (IEffect effect in ability.AvailableEffects)
-            {
-                if (!effect.SelfEffect)
-                {
-                    if (ListOfEffects.Any(b => b.EffectName.Equals(effect.EffectName)))
-                    {
-                        ListOfEffects.Remove(effect);
-                        ListOfEffects.Add(effect);
-                    }
-                    else
-                    {
-                        ListOfEffects.Add(effect);
-                    }
-                }
-                else
-                {
-                    enemyHero.AddSelfEffect(effect);
-                }
-            }
         }
 
         public void ApplyEffects()
@@ -108,6 +90,29 @@
         private void AddSelfEffect(IEffect selfEffect)
         {
             ListOfEffects.Add(selfEffect);
+        }
+
+        private void AddEffect(IAbility ability, Hero enemyHero)
+        {
+            foreach (IEffect effect in ability.AvailableEffects)
+            {
+                if (!effect.SelfEffect)
+                {
+                    if (ListOfEffects.Any(b => b.EffectName.Equals(effect.EffectName)))
+                    {
+                        ListOfEffects.Remove(effect);
+                        ListOfEffects.Add(effect);
+                    }
+                    else
+                    {
+                        ListOfEffects.Add(effect);
+                    }
+                }
+                else
+                {
+                    enemyHero.AddSelfEffect(effect);
+                }
+            }
         }
     }
 }

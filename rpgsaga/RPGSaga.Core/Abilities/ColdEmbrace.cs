@@ -1,36 +1,15 @@
 ﻿namespace RpgSaga.Abilities
 {
     using System.Collections.Generic;
-    using RPGSaga.Core;
     using RpgSaga.Effects;
     using RpgSaga.Interfaces;
 
-    public class ColdEmbrace : IAbility
+    public class ColdEmbrace : BaseAbility
     {
-        public string AbilityName { get; } = "Cold Embrace";
-
-        public int Damage { get; } = 40;
-
-        public int Probability { get; } = 40;
-
-        public int NumberOfUse { get; set; } = 1;
-
-        public List<IEffect> AvailableEffects { get; set; } = new List<IEffect> { new Freeze() };
-
-        public bool UseAbility()
+        public ColdEmbrace(string abilityName, int damage, int probablity, int numberOfUse)
+            : base(abilityName, damage, probablity, numberOfUse)
         {
-            if (NumberOfUse == 0)
-            {
-                return false;
-            }
-
-            if (Game.Rand.Next(0, 100) <= Probability)
-            {
-                NumberOfUse--;
-                return true;
-            }
-
-            return false;
+            AvailableEffects = new List<IEffect> { new Freeze("Freeze", 1, 0, true, false) };
         }
     }
 }

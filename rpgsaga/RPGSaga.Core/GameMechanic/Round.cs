@@ -37,8 +37,8 @@
                 int secondIndex = Game.Rand.Next(0, heroesList.Count);
                 Hero secondHero = heroesList[secondIndex];
                 heroesList.RemoveAt(secondIndex);
-
                 winnersList.Add(duel.StartDuel(firstHero, secondHero));
+
             }
 
             CreatePairs(winnersList);
