@@ -1,6 +1,5 @@
 ﻿namespace CourseApp
 {
-    using System;
     using RPGSaga.Core;
 
     public class Program
