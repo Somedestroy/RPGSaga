@@ -1,16 +1,28 @@
 ﻿namespace RPGSaga.Core
 {
     using System;
+    using System.Text;
 
     public class Duel
     {
+        private readonly StringBuilder sb;
+
+        public Duel()
+        {
+            sb = new StringBuilder();
+        }
+
         public T StartDuel<T>(T hero1, T hero2)
             where T : Hero
         {
             int firstHeroHealth = hero1.HealthPoints;
             int secondHeroHealth = hero2.HealthPoints;
-            Console.WriteLine($"Round {Game.RoundCounter}");
-            Console.WriteLine($"Battle {hero1.Name} VS {hero2.Name} beggins!");
+            sb.Append($"\nRound {Game.RoundCounter}");
+            Console.WriteLine(sb.ToString());
+            sb.Clear();
+            sb.Append($"\nBattle {hero1} VS {hero2} beggins!");
+            Console.WriteLine(sb.ToString());
+            sb.Clear();
 
             while (hero1.IsAlive() && hero2.IsAlive())
             {
@@ -50,15 +62,17 @@
         {
             if (!hero1.IsAlive())
             {
-                Console.WriteLine($"{hero2.Name} win duel");
+                Console.WriteLine($"{hero2} win duel");
                 hero2.Regeneration(firstHP);
+                hero2.RefreshAbilities();
                 Game.RoundCounter++;
                 return hero2;
             }
             else
             {
-                Console.WriteLine($"{hero1.Name} win duel");
+                Console.WriteLine($"{hero1} win duel");
                 hero1.Regeneration(secondHP);
+                hero1.RefreshAbilities();
                 Game.RoundCounter++;
                 return hero1;
             }

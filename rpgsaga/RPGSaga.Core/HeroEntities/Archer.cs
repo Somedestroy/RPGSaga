@@ -9,7 +9,8 @@
         public Archer(string name, int healthPoint, int damage)
             : base(name, healthPoint, damage)
         {
-            ListOfAbilities = new List<IAbility>() { new BurningArrows("Burning Arrows", 34, 100, 1) };
+            ListOfAbilities = new List<IAbility>() { new BurningArrows("Burning Arrows", 34, 45, 1) };
+            HeroType = "Archer";
         }
     }
 }
