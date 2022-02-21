@@ -11,7 +11,7 @@
 
         public int Damage { get; } = 14;
 
-        public int Probability { get; } = 15;
+        public int Probability { get; } = 40;
 
         public int NumberOfUse { get; set; } = 1;
 

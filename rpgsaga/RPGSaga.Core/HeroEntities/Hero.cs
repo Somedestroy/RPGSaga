@@ -17,7 +17,7 @@
 
         public List<IAbility> ListOfAbilities { get; set; }
 
-        public List<IEffect> ListOfEffects { get; set; } = new List<IEffect>();
+        private List<IEffect> ListOfEffects { get; set; } = new List<IEffect>();
 
         public Hero(string name, int healthPoint, int damage)
         {
@@ -49,6 +49,14 @@
                 return false;
             }
 
+            AddEffect(ability, enemyHero);
+            Console.WriteLine($"{enemyHero.Name} applies {ability.AbilityName} and deals {ability.Damage} damage");
+            HealthPoints -= ability.Damage;
+            return true;
+        }
+
+        private void AddEffect(IAbility ability, Hero enemyHero)
+        {
             foreach (IEffect effect in ability.AvailableEffects)
             {
                 if (!effect.SelfEffect)
@@ -60,7 +68,7 @@
                     }
                     else
                     {
-                      ListOfEffects.Add(effect);
+                        ListOfEffects.Add(effect);
                     }
                 }
                 else
@@ -68,10 +76,6 @@
                     enemyHero.AddSelfEffect(effect);
                 }
             }
-
-            Console.WriteLine($"{enemyHero.Name} applies {ability.AbilityName} and deals {ability.Damage} damage");
-            HealthPoints -= ability.Damage;
-            return true;
         }
 
         public void ApplyEffects()

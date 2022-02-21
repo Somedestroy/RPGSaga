@@ -11,7 +11,7 @@
 
         private static List<Hero> heroesList;
 
-        private static Round round;
+        public static Round round;
 
         public static int RoundCounter { get; set; }
 
@@ -31,7 +31,7 @@
 
         public static int GetHeroesNumber()
         {
-            Console.WriteLine("Enter the number of heroes. Number must be add and non-zero");
+            Console.WriteLine("Enter the number of heroes. Number must be non-zero");
             int inputNumber;
             string inputString = Console.ReadLine();
             while (!int.TryParse(inputString, out inputNumber))
@@ -42,7 +42,7 @@
 
             while (inputNumber <= 0)
             {
-                Console.WriteLine("You must enter a positive and non-zero number");
+                Console.WriteLine("You must enter a positive number");
                 inputString = Console.ReadLine();
                 inputNumber = Convert.ToInt32(inputString);
             }

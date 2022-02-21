@@ -17,7 +17,7 @@
             List<Hero> winnersList = new List<Hero>();
             if (heroesList.Count == 1)
             {
-                Console.WriteLine($"Winner is {heroesList[0]}");
+                Console.WriteLine($"Game is over. Winner is {heroesList[0].Name}");
                 return;
             }
 
