@@ -6,7 +6,7 @@ namespace RpgSaga.Abilities
 {
     public abstract class BaseAbility : IAbility
     {
-        public string AbilityName { get; } 
+        public string AbilityName { get; }
 
         public int Damage { get; }
 

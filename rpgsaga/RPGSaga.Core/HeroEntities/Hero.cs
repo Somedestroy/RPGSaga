@@ -9,6 +9,8 @@
     {
         public string Name { get; set; }
 
+        public string HeroType { get; set; }
+
         public int HealthPoints { get; set; }
 
         public int Damage { get; set; }
@@ -30,7 +32,7 @@
         {
             this.SkipTurn = false;
             HealthPoints -= enemyHero.Damage;
-            Console.WriteLine($"{enemyHero.Name} deals {enemyHero.Damage} to {Name}");
+            Console.WriteLine($"{enemyHero} deals {enemyHero.Damage} to {ToString()}");
         }
 
         public bool IsAlive()
@@ -55,7 +57,7 @@
             }
 
             AddEffect(ability, enemyHero);
-            Console.WriteLine($"{enemyHero.Name} applies {ability.AbilityName} and deals {ability.Damage} damage");
+            Console.WriteLine($"{enemyHero} applies {ability.AbilityName} and deals {ability.Damage} damage");
             HealthPoints -= ability.Damage;
             return true;
         }
@@ -70,12 +72,12 @@
                     {
                         this.SkipTurn = true;
                         HealthPoints -= effect.PermanentDamage;
-                        Console.WriteLine($"{Name} skip turn due {effect.EffectName}");
+                        Console.WriteLine($"{ToString()} skip turn due {effect.EffectName}");
                     }
                     else
                     {
                         HealthPoints -= effect.PermanentDamage;
-                        Console.WriteLine($"{Name} takes regular damage {effect.PermanentDamage} due {effect.EffectName}");
+                        Console.WriteLine($"{ToString()} takes regular damage {effect.PermanentDamage} due {effect.EffectName}");
                     }
                 }
             }
@@ -87,6 +89,40 @@
             ListOfEffects.Clear();
         }
 
+        public void RefreshAbilities()
+        {
+            foreach (var ability in ListOfAbilities)
+            {
+                ability.NumberOfUse = 1;
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{HeroType}: {NamePattern()}";
+        }
+
+        public string NamePattern()
+        {
+            return Name.Substring(0, Name.IndexOf(" ")) + " " + Name.Substring(Name.IndexOf(" ") + 1, 1) + ".";
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Hero))
+            {
+                return false;
+            }
+
+            Hero hero = (Hero)obj;
+            return Name == hero.Name && HealthPoints == hero.HealthPoints && Damage == hero.Damage && HeroType == hero.HeroType;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, HealthPoints, Damage, HeroType);
+        }
+
         private void AddSelfEffect(IEffect selfEffect)
         {
             ListOfEffects.Add(selfEffect);
@@ -96,6 +132,7 @@
         {
             foreach (IEffect effect in ability.AvailableEffects)
             {
+                effect.Duration = 1;
                 if (!effect.SelfEffect)
                 {
                     if (ListOfEffects.Any(b => b.EffectName.Equals(effect.EffectName)))

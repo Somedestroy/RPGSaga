@@ -9,7 +9,8 @@
         public Knight(string name, int healthPoint, int damage)
             : base(name, healthPoint, damage)
         {
-            ListOfAbilities = new List<IAbility>() { new Rupture("Rupture", 40, 100, 1) };
+            ListOfAbilities = new List<IAbility>() { new Rupture("Rupture", 40, 55, 1) };
+            HeroType = "Knight";
         }
 
     }
