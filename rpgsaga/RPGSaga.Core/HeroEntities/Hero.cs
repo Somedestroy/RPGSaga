@@ -107,6 +107,22 @@
             return Name.Substring(0, Name.IndexOf(" ")) + " " + Name.Substring(Name.IndexOf(" ") + 1, 1) + ".";
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Hero))
+            {
+                return false;
+            }
+
+            Hero hero = (Hero)obj;
+            return Name == hero.Name && HealthPoints == hero.HealthPoints && Damage == hero.Damage && HeroType == hero.HeroType;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, HealthPoints, Damage, HeroType);
+        }
+
         private void AddSelfEffect(IEffect selfEffect)
         {
             ListOfEffects.Add(selfEffect);
