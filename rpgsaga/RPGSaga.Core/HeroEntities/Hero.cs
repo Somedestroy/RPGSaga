@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using RpgSaga.Interfaces;
+    using RpgSaga.Logger;
 
     public abstract class Hero
     {
@@ -28,11 +29,11 @@
 
         private List<IEffect> ListOfEffects { get; set; } = new List<IEffect>();
 
-        public void Attacked(Hero enemyHero)
+        public virtual void Attacked(Hero enemyHero)
         {
             this.SkipTurn = false;
             HealthPoints -= enemyHero.Damage;
-            Console.WriteLine($"{enemyHero} deals {enemyHero.Damage} to {ToString()}");
+            Logger.Info($"{enemyHero} deals {enemyHero.Damage} to {ToString()}");
         }
 
         public bool IsAlive()
@@ -40,7 +41,7 @@
             return HealthPoints > 0;
         }
 
-        public bool UsedAbility(Hero enemyHero)
+        public virtual bool UsedAbility(Hero enemyHero)
         {
             if (enemyHero.ListOfAbilities == null)
             {
@@ -57,7 +58,7 @@
             }
 
             AddEffect(ability, enemyHero);
-            Console.WriteLine($"{enemyHero} applies {ability.AbilityName} and deals {ability.Damage} damage");
+            Logger.Info($"{enemyHero} applies {ability.AbilityName} and deals {ability.Damage} damage");
             HealthPoints -= ability.Damage;
             return true;
         }
@@ -72,12 +73,12 @@
                     {
                         this.SkipTurn = true;
                         HealthPoints -= effect.PermanentDamage;
-                        Console.WriteLine($"{ToString()} skip turn due {effect.EffectName}");
+                        Logger.Info($"{ToString()} skip turn due {effect.EffectName}");
                     }
                     else
                     {
                         HealthPoints -= effect.PermanentDamage;
-                        Console.WriteLine($"{ToString()} takes regular damage {effect.PermanentDamage} due {effect.EffectName}");
+                        Logger.Info($"{ToString()} takes regular damage {effect.PermanentDamage} due {effect.EffectName}");
                     }
                 }
             }
@@ -91,6 +92,11 @@
 
         public void RefreshAbilities()
         {
+            if (ListOfAbilities == null)
+            {
+                return;
+            }
+
             foreach (var ability in ListOfAbilities)
             {
                 ability.NumberOfUse = 1;

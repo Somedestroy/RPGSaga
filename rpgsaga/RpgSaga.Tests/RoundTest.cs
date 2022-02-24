@@ -1,17 +1,18 @@
 ﻿namespace RpgSaga.Tests
 {
+    using System;
     using RPGSaga.Core;
     using Xunit;
 
     public class RoundTest
     {
-        [Theory]
-        [InlineData(5)]
-        [InlineData(100)]
-        public void GeneratedPairsIsCorrect(int numberOfHeroes)
+        [Fact]
+        public void GeneratedPairsIsCorrect()
         {
             // Arange
             Round round = new Round();
+            Random rand = new Random();
+            int numberOfHeroes = rand.Next(1, 100);
             var listOfHeroes = Game.CreateRandomHeroes(numberOfHeroes);
 
             // Act

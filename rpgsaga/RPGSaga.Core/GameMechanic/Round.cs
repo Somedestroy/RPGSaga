@@ -1,8 +1,8 @@
 ﻿namespace RPGSaga.Core
 {
-    using System;
     using System.Collections.Generic;
     using System.Text;
+    using RpgSaga.Logger;
 
     public class Round
     {
@@ -20,7 +20,7 @@
             List<Hero> winnersList = new List<Hero>();
             if (heroesList.Count == 1)
             {
-                Console.WriteLine($"Game is over. Winner is {heroesList[0]}");
+                Logger.Info($"Game is over. Winner is {heroesList[0]}");
                 return;
             }
 
