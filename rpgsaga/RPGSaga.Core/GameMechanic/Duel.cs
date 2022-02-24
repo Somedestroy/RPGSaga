@@ -1,8 +1,8 @@
 ﻿namespace RPGSaga.Core
 {
-    using RpgSaga.Logger;
     using System;
     using System.Text;
+    using RpgSaga.Logger;
 
     public class Duel
     {
@@ -19,10 +19,10 @@
             int firstHeroHealth = hero1.HealthPoints;
             int secondHeroHealth = hero2.HealthPoints;
             sb.Append($"\nRound {Game.RoundCounter}");
-            Console.WriteLine(sb.ToString());
+            Logger.Info(sb.ToString());
             sb.Clear();
             sb.Append($"\nBattle {hero1} VS {hero2} beggins!");
-            Console.WriteLine(sb.ToString());
+            Logger.Info(sb.ToString());
             sb.Clear();
             try
             {
