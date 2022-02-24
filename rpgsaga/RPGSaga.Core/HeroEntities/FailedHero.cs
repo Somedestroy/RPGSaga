@@ -1,6 +1,6 @@
 ﻿namespace RPGSaga.Core
 {
-    using System;
+    using RpgSaga.Exceptions;
 
     public class FailedHero : Hero
     {
@@ -12,7 +12,12 @@
 
         public override void Attacked(Hero enemyHero)
         {
-            throw new Exception("Failed enemy have imunnity");
+            throw new FailedHeroException("Faild hero has immunity to damage!");
+        }
+
+        public override bool UsedAbility(Hero enemyHero)
+        {
+            throw new FailedHeroException("Faild hero has immunity to damage!");
         }
     }
 }

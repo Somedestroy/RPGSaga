@@ -1,7 +1,7 @@
 ﻿namespace RPGSaga.Core
 {
-    using System;
     using System.Text;
+    using RpgSaga.Exceptions;
     using RpgSaga.Logger;
 
     public class Duel
@@ -26,31 +26,21 @@
             sb.Clear();
             try
             {
-                while (hero1.IsAlive() && hero2.IsAlive())
+                while (!IsDied(hero1, hero2))
                 {
                     hero1.ApplyEffects();
-                    if (!hero1.IsAlive() || !hero2.IsAlive())
+                    if (!Fight(hero1, hero2))
                     {
                         break;
-                    }
-
-                    if (!hero1.SkipTurn && !hero2.UsedAbility(hero1))
-                    {
-                        hero2.Attacked(hero1);
                     }
 
                     hero2.ApplyEffects();
-                    if (!hero1.IsAlive() || !hero2.IsAlive())
+                    if (!Fight(hero2, hero1))
                     {
                         break;
                     }
 
-                    if (!hero2.SkipTurn && !hero1.UsedAbility(hero2))
-                    {
-                        hero1.Attacked(hero2);
-                    }
-
-                    if (!hero1.IsAlive() || !hero2.IsAlive())
+                    if (IsDied(hero1, hero2))
                     {
                         break;
                     }
@@ -58,9 +48,8 @@
 
                 return Refresh(hero1, hero2, firstHeroHealth, secondHeroHealth);
             }
-            catch (Exception ex)
+            catch (FailedHeroException ex)
             {
-                Logger.Error(ex.Message);
                 Game.RoundCounter++;
                 if (hero1.HeroType == Game.HeroTypes.FailedHero.ToString())
                 {
@@ -86,7 +75,7 @@
         {
             if (!hero1.IsAlive())
             {
-                Console.WriteLine($"{hero2} win duel");
+                Logger.Info($"{hero2} win duel");
                 hero2.Regeneration(firstHP);
                 hero2.RefreshAbilities();
                 Game.RoundCounter++;
@@ -94,12 +83,38 @@
             }
             else
             {
-                Console.WriteLine($"{hero1} win duel");
+                Logger.Info($"{hero1} win duel");
                 hero1.Regeneration(secondHP);
                 hero1.RefreshAbilities();
                 Game.RoundCounter++;
                 return hero1;
             }
+        }
+
+        private bool Fight(Hero hero, Hero enemyHero)
+        {
+            if (IsDied(hero, enemyHero))
+            {
+                return false;
+            }
+            else
+            {
+                if (!enemyHero.SkipTurn && !hero.UsedAbility(enemyHero))
+                {
+                    hero.Attacked(enemyHero);
+                }
+
+                return true;
+            }
+        }
+
+        private bool IsDied(Hero hero1, Hero hero2)
+        {
+            if (!hero1.IsAlive() || !hero2.IsAlive())
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

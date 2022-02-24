@@ -69,7 +69,7 @@
         public static List<Hero> CreateRandomHeroes(int heroesNumber)
         {
             var values = Enum.GetValues(typeof(HeroTypes));
-            for (int index = 0; index < heroesNumber; index++)
+            for (int index = 1; index <= heroesNumber; index++)
             {
                 switch ((HeroTypes)Rand.Next(0, values.Length))
                 {

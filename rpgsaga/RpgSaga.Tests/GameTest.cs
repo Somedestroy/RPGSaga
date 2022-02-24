@@ -1,5 +1,6 @@
 ﻿namespace RpgSaga.Tests
 {
+    using System;
     using RPGSaga.Core;
     using Xunit;
 
@@ -8,7 +9,8 @@
         [Fact]
         public void CreatedHeroesNumberIsValid()
         {
-            int inputNumber = 115;
+            Random rand = new Random();
+            int inputNumber = rand.Next(1, 500);
 
             var result = Game.CreateRandomHeroes(inputNumber);
 

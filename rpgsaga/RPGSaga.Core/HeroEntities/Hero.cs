@@ -41,7 +41,7 @@
             return HealthPoints > 0;
         }
 
-        public bool UsedAbility(Hero enemyHero)
+        public virtual bool UsedAbility(Hero enemyHero)
         {
             if (enemyHero.ListOfAbilities == null)
             {
