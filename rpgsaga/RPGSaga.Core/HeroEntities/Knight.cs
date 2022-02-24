@@ -10,7 +10,7 @@
             : base(name, healthPoint, damage)
         {
             ListOfAbilities = new List<IAbility>() { new Rupture("Rupture", 40, 55, 1) };
-            HeroType = "Knight";
+            HeroType = Game.HeroTypes.Knight.ToString();
         }
 
     }
