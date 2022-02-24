@@ -10,7 +10,7 @@
             : base(name, healthPoint, damage)
         {
             ListOfAbilities = new List<IAbility>() { new BurningArrows("Burning Arrows", 34, 45, 1) };
-            HeroType = "Archer";
+            HeroType = Game.HeroTypes.Archer.ToString();
         }
     }
 }

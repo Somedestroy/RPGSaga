@@ -10,7 +10,7 @@
             : base(name, healthPoint, damage)
         {
             ListOfAbilities = new List<IAbility>() { new ColdEmbrace("Cold Embrace", 24, 44, 1) };
-            HeroType = "Wizard";
+            HeroType = Game.HeroTypes.Wizard.ToString();
         }
 
     }

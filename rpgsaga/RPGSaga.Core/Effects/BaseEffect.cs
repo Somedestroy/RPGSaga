@@ -4,6 +4,15 @@
 
     public abstract class BaseEffect : IEffect
     {
+        public BaseEffect(string effectName, int duration, int permanentDamage, bool skipTurn, bool selfEffect)
+        {
+            EffectName = effectName;
+            Duration = duration;
+            PermanentDamage = permanentDamage;
+            SkipTurn = skipTurn;
+            SelfEffect = selfEffect;
+        }
+
         public string EffectName { get; }
 
         public int Duration { get; set; }
@@ -13,15 +22,6 @@
         public bool SkipTurn { get; }
 
         public bool SelfEffect { get; }
-
-        public BaseEffect(string effectName, int duration, int permanentDamage, bool skipTurn, bool selfEffect)
-        {
-            EffectName = effectName;
-            Duration = duration;
-            PermanentDamage = permanentDamage;
-            SkipTurn = skipTurn;
-            SelfEffect = selfEffect;
-        }
 
         public virtual bool UseEffect()
         {

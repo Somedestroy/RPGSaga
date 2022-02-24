@@ -7,6 +7,13 @@
 
     public abstract class Hero
     {
+        public Hero(string name, int healthPoint, int damage)
+        {
+            Name = name;
+            HealthPoints = healthPoint;
+            Damage = damage;
+        }
+
         public string Name { get; set; }
 
         public string HeroType { get; set; }
@@ -21,13 +28,6 @@
 
         private List<IEffect> ListOfEffects { get; set; } = new List<IEffect>();
 
-        public Hero(string name, int healthPoint, int damage)
-        {
-            Name = name;
-            HealthPoints = healthPoint;
-            Damage = damage;
-        }
-
         public void Attacked(Hero enemyHero)
         {
             this.SkipTurn = false;
@@ -37,7 +37,7 @@
 
         public bool IsAlive()
         {
-            return HealthPoints > 0 ? true : false;
+            return HealthPoints > 0;
         }
 
         public bool UsedAbility(Hero enemyHero)
@@ -104,7 +104,8 @@
 
         public string NamePattern()
         {
-            return Name.Substring(0, Name.IndexOf(" ")) + " " + Name.Substring(Name.IndexOf(" ") + 1, 1) + ".";
+            var nameArray = Name.Split(' ');
+            return $"{nameArray[0]} {nameArray[1].ToString().Substring(0, 1)}.";
         }
 
         public override bool Equals(object obj)

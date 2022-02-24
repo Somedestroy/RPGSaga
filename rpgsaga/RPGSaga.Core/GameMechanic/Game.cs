@@ -7,7 +7,7 @@
     {
         public static Random Rand;
 
-        private static NamesGenerator namesGenerator;
+        private static readonly NamesGenerator namesGenerator;
 
         private static List<Hero> heroesList;
 
@@ -64,7 +64,6 @@
             {
                 switch ((HeroTypes)Rand.Next(1, values.Length))
                 {
-
                     case HeroTypes.Knight:
                         heroesList.Add(new Knight(namesGenerator.GetHeroName(), Rand.Next(150, 180), Rand.Next(15, 19)));
                         break;
