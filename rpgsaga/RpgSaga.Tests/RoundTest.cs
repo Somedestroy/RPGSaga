@@ -1,5 +1,6 @@
 ﻿namespace RpgSaga.Tests
 {
+    using System;
     using RPGSaga.Core;
     using Xunit;
 
@@ -10,7 +11,8 @@
         {
             // Arange
             Round round = new Round();
-            int numberOfHeroes = 5;
+            Random rand = new Random();
+            int numberOfHeroes = rand.Next(1, 100);
             var listOfHeroes = Game.CreateRandomHeroes(numberOfHeroes);
 
             // Act
