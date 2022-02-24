@@ -1,5 +1,6 @@
 ﻿namespace RPGSaga.Core
 {
+    using RpgSaga.Logger;
     using System;
     using System.Text;
 
@@ -23,38 +24,61 @@
             sb.Append($"\nBattle {hero1} VS {hero2} beggins!");
             Console.WriteLine(sb.ToString());
             sb.Clear();
-
-            while (hero1.IsAlive() && hero2.IsAlive())
+            try
             {
-                hero1.ApplyEffects();
-                if (!hero1.IsAlive() || !hero2.IsAlive())
+                while (hero1.IsAlive() && hero2.IsAlive())
                 {
-                    break;
+                    hero1.ApplyEffects();
+                    if (!hero1.IsAlive() || !hero2.IsAlive())
+                    {
+                        break;
+                    }
+
+                    if (!hero1.SkipTurn && !hero2.UsedAbility(hero1))
+                    {
+                        hero2.Attacked(hero1);
+                    }
+
+                    hero2.ApplyEffects();
+                    if (!hero1.IsAlive() || !hero2.IsAlive())
+                    {
+                        break;
+                    }
+
+                    if (!hero2.SkipTurn && !hero1.UsedAbility(hero2))
+                    {
+                        hero1.Attacked(hero2);
+                    }
+
+                    if (!hero1.IsAlive() || !hero2.IsAlive())
+                    {
+                        break;
+                    }
                 }
 
-                if (!hero1.SkipTurn && !hero2.UsedAbility(hero1))
+                return Refresh(hero1, hero2, firstHeroHealth, secondHeroHealth);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                Game.RoundCounter++;
+                if (hero1.HeroType == Game.HeroTypes.FailedHero.ToString())
                 {
-                    hero2.Attacked(hero1);
+                    Logger.Error($"{hero1} can't participate in the battle because of he is cheater!");
+                    Logger.Info($"{hero2} auto win duel!");
+                    hero2.Regeneration(secondHeroHealth);
+                    hero2.RefreshAbilities();
+                    return hero2;
                 }
-
-                hero2.ApplyEffects();
-                if (!hero1.IsAlive() || !hero2.IsAlive())
+                else
                 {
-                    break;
-                }
-
-                if (!hero2.SkipTurn && !hero1.UsedAbility(hero2))
-                {
-                    hero1.Attacked(hero2);
-                }
-
-                if (!hero1.IsAlive() || !hero2.IsAlive())
-                {
-                    break;
+                    Logger.Error($"{hero2} can't participate in the battle because of he is cheater!");
+                    Logger.Info($"{hero1} auto win duel!");
+                    hero2.Regeneration(firstHeroHealth);
+                    hero1.RefreshAbilities();
+                    return hero1;
                 }
             }
-
-            return Refresh(hero1, hero2, firstHeroHealth, secondHeroHealth);
         }
 
         private T Refresh<T>(T hero1, T hero2, int firstHP, int secondHP)

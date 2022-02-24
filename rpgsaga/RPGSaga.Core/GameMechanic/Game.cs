@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using RpgSaga.Logger;
 
     public static class Game
     {
@@ -26,23 +27,30 @@
 
         public static void Run()
         {
-            round.CreatePairs(CreateRandomHeroes(GetHeroesNumber()));
+            try
+            {
+                round.CreatePairs(CreateRandomHeroes(GetHeroesNumber()));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
         }
 
         public static int GetHeroesNumber()
         {
-            Console.WriteLine("Enter the number of heroes. Number must be non-zero");
+            Logger.Info("Enter the number of heroes. Number must be non-zero");
             int inputNumber;
             string inputString = Console.ReadLine();
             while (!int.TryParse(inputString, out inputNumber))
             {
-                Console.WriteLine("This is not a number! Please try again");
+                Logger.Error("This is not a number! Please try again");
                 inputString = Console.ReadLine();
             }
 
             while (inputNumber <= 0)
             {
-                Console.WriteLine("You must enter a positive number");
+                Logger.Error("You must enter a positive number");
                 inputString = Console.ReadLine();
                 inputNumber = Convert.ToInt32(inputString);
             }
@@ -52,9 +60,10 @@
 
         public enum HeroTypes
         {
-            Knight = 1,
-            Wizard = 2,
-            Archer = 3,
+            Knight = 0,
+            Wizard = 1,
+            Archer = 2,
+            FailedHero = 3,
         }
 
         public static List<Hero> CreateRandomHeroes(int heroesNumber)
@@ -62,7 +71,7 @@
             var values = Enum.GetValues(typeof(HeroTypes));
             for (int index = 0; index < heroesNumber; index++)
             {
-                switch ((HeroTypes)Rand.Next(1, values.Length))
+                switch ((HeroTypes)Rand.Next(0, values.Length))
                 {
                     case HeroTypes.Knight:
                         heroesList.Add(new Knight(namesGenerator.GetHeroName(), Rand.Next(150, 180), Rand.Next(15, 19)));
@@ -73,10 +82,13 @@
                     case HeroTypes.Archer:
                         heroesList.Add(new Archer(namesGenerator.GetHeroName(), Rand.Next(120, 140), Rand.Next(13, 17)));
                         break;
+                    case HeroTypes.FailedHero:
+                        heroesList.Add(new FailedHero(namesGenerator.GetHeroName(), Rand.Next(115, 140), Rand.Next(17, 40)));
+                        break;
                 }
             }
 
-            Console.WriteLine("Heroes were successfully created");
+            Logger.Info("Heroes were successfully created");
             return heroesList;
         }
     }

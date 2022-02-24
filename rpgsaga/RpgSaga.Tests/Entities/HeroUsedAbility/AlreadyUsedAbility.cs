@@ -10,7 +10,7 @@
         public AlreadyUsedAbility(string abilityName, int damage, int probablity, int numberOfUse)
              : base(abilityName, damage, probablity, numberOfUse)
         {
-            AvailableEffects = new List<IEffect> { new Freeze("Freeze", 1, 0, true, false) };
+            AvailableEffects = new List<IAbility> { new Freeze("Freeze", 1, 0, true, false) };
         }
     }
 }

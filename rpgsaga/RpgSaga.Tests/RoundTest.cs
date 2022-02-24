@@ -5,13 +5,12 @@
 
     public class RoundTest
     {
-        [Theory]
-        [InlineData(5)]
-        [InlineData(100)]
-        public void GeneratedPairsIsCorrect(int numberOfHeroes)
+        [Fact]
+        public void GeneratedPairsIsCorrect()
         {
             // Arange
             Round round = new Round();
+            int numberOfHeroes = 5;
             var listOfHeroes = Game.CreateRandomHeroes(numberOfHeroes);
 
             // Act

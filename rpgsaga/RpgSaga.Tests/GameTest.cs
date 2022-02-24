@@ -5,12 +5,14 @@
 
     public class GameTest
     {
-        [Theory]
-        [InlineData(100)]
-        public void CreatedHeroesNumberIsValid(int heroesNumber)
+        [Fact]
+        public void CreatedHeroesNumberIsValid()
         {
-            var result = Game.CreateRandomHeroes(heroesNumber);
-            Assert.Equal(result.Count, heroesNumber);
+            int inputNumber = 115;
+
+            var result = Game.CreateRandomHeroes(inputNumber);
+
+            Assert.Equal(inputNumber, result.Count);
         }
     }
 }
