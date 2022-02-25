@@ -76,7 +76,7 @@
             if (!hero1.IsAlive())
             {
                 Logger.Info($"{hero2} win duel");
-                hero2.Regeneration(firstHP);
+                hero2.Regeneration(secondHP);
                 hero2.RefreshAbilities();
                 Game.RoundCounter++;
                 return hero2;
@@ -84,7 +84,7 @@
             else
             {
                 Logger.Info($"{hero1} win duel");
-                hero1.Regeneration(secondHP);
+                hero1.Regeneration(firstHP);
                 hero1.RefreshAbilities();
                 Game.RoundCounter++;
                 return hero1;
