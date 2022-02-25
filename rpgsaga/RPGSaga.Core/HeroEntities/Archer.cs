@@ -6,6 +6,10 @@
 
     public class Archer : Hero
     {
+        public Archer()
+        {
+        }
+
         public Archer(string name, int healthPoint, int damage)
             : base(name, healthPoint, damage)
         {

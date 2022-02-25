@@ -4,6 +4,10 @@
 
     public class FailedHero : Hero
     {
+        public FailedHero()
+        {
+        }
+
         public FailedHero(string name, int healthPoint, int damage)
             : base(name, healthPoint, damage)
         {

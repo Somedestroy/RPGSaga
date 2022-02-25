@@ -25,8 +25,4 @@
 		<AdditionalFiles Include="../_stylecop/stylecop.json" />
 	</ItemGroup>
 	
-	<ItemGroup>
-	  <Folder Include="Serialization\" />
-	</ItemGroup>
-	
 </Project>

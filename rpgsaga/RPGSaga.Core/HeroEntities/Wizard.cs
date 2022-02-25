@@ -6,6 +6,10 @@
 
     public class Wizard : Hero
     {
+        public Wizard()
+        {
+        }
+
         public Wizard(string name, int healthPoint, int damage)
             : base(name, healthPoint, damage)
         {

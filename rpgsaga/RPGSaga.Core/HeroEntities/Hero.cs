@@ -8,6 +8,10 @@
 
     public abstract class Hero
     {
+        public Hero()
+        {
+        }
+
         public Hero(string name, int healthPoint, int damage)
         {
             Name = name;

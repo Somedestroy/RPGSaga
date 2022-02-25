@@ -4,12 +4,15 @@
     using System.Collections.Generic;
     using RPGSaga.Core;
     using RpgSaga.Logger;
+    using RpgSaga.Serialization;
+    using System.Linq;
 
     public class HeroGenerator
     {
         private readonly NamesGenerator namesGenerator;
         private List<Hero> heroesList;
         private Random rand;
+        private List<HeroDTO> heroDTOs;
 
         public HeroGenerator()
         {
@@ -50,6 +53,16 @@
 
             Logger.Info("Heroes were successfully created");
             return heroesList;
+        }
+
+        public List<HeroDTO> GenerateDTO(List<Hero> listOfHeroes)
+        {
+            return listOfHeroes.Select(x => MapperDTO.ModelToDTO(x)).ToList();
+        }
+
+        public List<Hero> GenerateHeroes(List<HeroDTO> heroDTO)
+        {
+            return heroDTO.Select(x => MapperDTO.DTOToModel(x)).ToList();
         }
     }
 }

@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RpgSaga.Serialization
+﻿namespace RpgSaga.Serialization
 {
-    class HeroDTO
+    public class HeroDTO
     {
+        public string Name { get; set; }
+
+        public string HeroType { get; set; }
+
+        public int HealthPoints { get; set; }
+
+        public int Damage { get; set; }
     }
 }
