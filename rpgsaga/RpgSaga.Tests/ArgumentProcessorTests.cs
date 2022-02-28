@@ -2,6 +2,7 @@
 {
     using System;
     using RpgSaga.Configuration;
+    using RpgSaga.Interfaces;
     using Xunit;
 
     public class ArgumentProcessorTests
@@ -15,10 +16,11 @@
         {
             string[] args = { argument, value };
             ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
+            IGameConfig gameConfig = null;
 
-            var result = argumentProcessor.SelectConfig(args);
+            var result = argumentProcessor.SelectConfig(args, ref gameConfig);
 
-            Assert.True(result.Item1.GetType().Name == configType && result.Item2 == needToSave);
+            Assert.True(gameConfig.GetType().Name == configType && result == needToSave);
         }
 
         [Theory]
@@ -28,23 +30,24 @@
         {
             string[] args = { firstArgument, firstValue, secondArgument, secondValue };
             ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
+            IGameConfig gameConfig = null;
 
-            var result = argumentProcessor.SelectConfig(args);
+            var result = argumentProcessor.SelectConfig(args, ref gameConfig);
 
-            Assert.True(result.Item1.GetType().Name == configType && result.Item2 == needToSave);
+            Assert.True(gameConfig.GetType().Name == configType && result == needToSave);
         }
 
         [Theory]
         [InlineData("KeyboardConfig", false)]
-        public void SelectConfigIfArgsCountIsZero(string configType, bool needToSave)
+        public void SelectConfigIfArgsEmpty(string configType, bool needToSave)
         {
-            string[] args = new string[] { };
-
+            string[] args = Array.Empty<string>();
             ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
+            IGameConfig gameConfig = null;
 
-            var result = argumentProcessor.SelectConfig(args);
+            var result = argumentProcessor.SelectConfig(args, ref gameConfig);
 
-            Assert.True(result.Item1.GetType().Name == configType && result.Item2 == needToSave);
+            Assert.True(gameConfig.GetType().Name == configType && result == needToSave);
         }
 
         [Theory]
@@ -55,8 +58,9 @@
         {
             string[] args = { argument, value };
             ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
+            IGameConfig gameConfig = null;
 
-            Action action = () => argumentProcessor.SelectConfig(args);
+            Action action = () => argumentProcessor.SelectConfig(args, ref gameConfig);
 
             Assert.Throws<ArgumentException>(action);
         }

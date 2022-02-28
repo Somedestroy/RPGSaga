@@ -17,27 +17,20 @@
             Rand = new Random();
             round = new Round();
             RoundCounter = 1;
-            Save = false;
         }
 
         public static Random Rand { get; }
 
         public static int RoundCounter { get; set; }
 
-        public static IGameConfig GameConfig { get; set; }
-
-        public static bool Save { get; set; }
-
         public static List<Hero> HeroesList { get; set; }
 
-        public static void Run((IGameConfig gameConfig, bool save) config)
+        public static void Run(IGameConfig gameConfig, bool save)
         {
             try
             {
-                GameConfig = config.gameConfig;
-                Save = config.save;
-                HeroesList = GameConfig.GetHeroes();
-                if (Save)
+                HeroesList = gameConfig.GetHeroes();
+                if (save)
                 {
                     fileService.SaveFile(HeroesList);
                 }
