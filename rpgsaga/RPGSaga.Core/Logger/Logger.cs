@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace RpgSaga.Logger
+﻿namespace RpgSaga.Logger
 {
+    using System;
+
     public static class Logger
     {
         public static void Info(string data)
@@ -15,6 +15,5 @@ namespace RpgSaga.Logger
             Console.WriteLine(data);
             Console.ResetColor();
         }
-
     }
 }

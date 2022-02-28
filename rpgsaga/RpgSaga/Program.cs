@@ -7,7 +7,7 @@
     {
         public static void Main(string[] args)
         {
-            ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
+            ArgumentsProcessor argumentProcessor = new ();
             Game.Run(argumentProcessor.SelectConfig(args));
         }
     }

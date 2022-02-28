@@ -1,6 +1,8 @@
 ﻿namespace RpgSaga.Tests
 {
+    using System;
     using RPGSaga.Core;
+    using RpgSaga.Exceptions;
     using RpgSaga.Tests.Entities;
     using Xunit;
 
@@ -195,6 +197,17 @@
 
             // Assert
             Assert.True(result);
+        }
+
+        [Fact]
+        public void CatchFailedHero()
+        {
+            var hero = new FailedHero("Joe Baiden", 5000, 45);
+            var enemyHero = new Archer("Vladimir Putin", 5000, 45);
+
+            Action action = () => hero.Attacked(enemyHero);
+
+            Assert.Throws<FailedHeroException>(action);
         }
     }
 }

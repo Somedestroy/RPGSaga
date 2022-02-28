@@ -17,7 +17,7 @@
             Rand = new Random();
             round = new Round();
             RoundCounter = 1;
-            NeedToSave = false;
+            Save = false;
         }
 
         public static Random Rand { get; }
@@ -26,36 +26,28 @@
 
         public static IGameConfig GameConfig { get; set; }
 
-        public static bool NeedToSave { get; set; }
+        public static bool Save { get; set; }
 
-        public static List<Hero> heroesList { get; set; }
+        public static List<Hero> HeroesList { get; set; }
 
-        public static void Run((IGameConfig gameConfig, bool needToSave) config)
+        public static void Run((IGameConfig gameConfig, bool save) config)
         {
             try
             {
                 GameConfig = config.gameConfig;
-                NeedToSave = config.needToSave;
-                heroesList = GameConfig.GetHeroes();
-                if (NeedToSave)
+                Save = config.save;
+                HeroesList = GameConfig.GetHeroes();
+                if (Save)
                 {
-                    fileService.PutFile(heroesList);
+                    fileService.SaveFile(HeroesList);
                 }
 
-                round.CreatePairs(heroesList);
+                round.CreatePairs(HeroesList);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
             }
-        }
-
-        public enum HeroTypes
-        {
-            Knight = 0,
-            Wizard = 1,
-            Archer = 2,
-            FailedHero = 3,
         }
     }
 }

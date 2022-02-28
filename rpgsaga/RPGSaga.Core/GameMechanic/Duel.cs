@@ -2,6 +2,7 @@
 {
     using System.Text;
     using RpgSaga.Exceptions;
+    using RpgSaga.HeroEntities;
     using RpgSaga.Logger;
 
     public class Duel
@@ -18,9 +19,6 @@
         {
             int firstHeroHealth = hero1.HealthPoints;
             int secondHeroHealth = hero2.HealthPoints;
-            sb.Append($"\nRound {Game.RoundCounter}");
-            Logger.Info(sb.ToString());
-            sb.Clear();
             sb.Append($"\nBattle {hero1} VS {hero2} beggins!");
             Logger.Info(sb.ToString());
             sb.Clear();
@@ -48,10 +46,9 @@
 
                 return Refresh(hero1, hero2, firstHeroHealth, secondHeroHealth);
             }
-            catch (FailedHeroException ex)
+            catch (FailedHeroException)
             {
-                Game.RoundCounter++;
-                if (hero1.HeroType == Game.HeroTypes.FailedHero.ToString())
+                if (hero1.HeroType == HeroTypes.FailedHero.ToString())
                 {
                     Logger.Error($"{hero1} can't participate in the battle because of he is cheater!");
                     Logger.Info($"{hero2} auto win duel!");
@@ -78,7 +75,6 @@
                 Logger.Info($"{hero2} win duel");
                 hero2.Regeneration(secondHP);
                 hero2.RefreshAbilities();
-                Game.RoundCounter++;
                 return hero2;
             }
             else
@@ -86,7 +82,6 @@
                 Logger.Info($"{hero1} win duel");
                 hero1.Regeneration(firstHP);
                 hero1.RefreshAbilities();
-                Game.RoundCounter++;
                 return hero1;
             }
         }
@@ -114,6 +109,7 @@
             {
                 return true;
             }
+
             return false;
         }
     }

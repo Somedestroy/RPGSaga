@@ -2,17 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using RPGSaga.Core;
     using RpgSaga.Logger;
     using RpgSaga.Serialization;
-    using System.Linq;
 
     public class HeroGenerator
     {
         private readonly NamesGenerator namesGenerator;
         private List<Hero> heroesList;
         private Random rand;
-        private List<HeroDTO> heroDTOs;
 
         public HeroGenerator()
         {

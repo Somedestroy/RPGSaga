@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using RpgSaga.Abilities;
+    using RpgSaga.HeroEntities;
     using RpgSaga.Interfaces;
 
     public class Wizard : Hero
@@ -14,8 +15,7 @@
             : base(name, healthPoint, damage)
         {
             ListOfAbilities = new List<IAbility>() { new ColdEmbrace("Cold Embrace", 24, 44, 1) };
-            HeroType = Game.HeroTypes.Wizard.ToString();
+            HeroType = HeroTypes.Wizard.ToString();
         }
-
     }
 }

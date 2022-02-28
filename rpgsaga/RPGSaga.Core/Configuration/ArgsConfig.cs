@@ -7,8 +7,8 @@
 
     public class ArgsConfig : IGameConfig
     {
-        private HeroGenerator heroGenerator;
-        private int heroesNumber;
+        private readonly HeroGenerator heroGenerator;
+        private readonly int heroesNumber;
 
         public ArgsConfig(int heroesNumber)
         {

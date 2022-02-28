@@ -7,12 +7,10 @@
 
     public class HeroSerialization
     {
-        private List<HeroDTO> heroDTOs;
         private HeroGenerator heroGenerator;
 
         public HeroSerialization()
         {
-            heroDTOs = new List<HeroDTO>();
             heroGenerator = new HeroGenerator();
         }
 

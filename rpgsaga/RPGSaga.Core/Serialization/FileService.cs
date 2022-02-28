@@ -6,7 +6,7 @@
 
     public class FileService
     {
-        private const string PathToFolder = @"JSON repository";
+        private const string PathToFolder = @"JSON";
         private HeroDesirialization heroDesirialization;
         private HeroSerialization heroSerialization;
 
@@ -16,11 +16,11 @@
             heroSerialization = new HeroSerialization();
         }
 
-        public string FileNameToSave { get; set; }
+        public static string FileNameToSave { get; set; }
 
-        public string FileNameToGet { get; set; }
+        public static string FileNameToGet { get; set; }
 
-        public void PutFile(List<Hero> heroesList)
+        public void SaveFile(List<Hero> heroesList)
         {
             string fullPath = PathToFolder + @"\" + FileNameToSave;
             var file = heroSerialization.Serialize(heroesList);
@@ -32,6 +32,5 @@
             string fullPath = PathToFolder + @"\" + FileNameToGet;
             return heroDesirialization.Desirialization(File.ReadAllText(fullPath));
         }
-
     }
 }

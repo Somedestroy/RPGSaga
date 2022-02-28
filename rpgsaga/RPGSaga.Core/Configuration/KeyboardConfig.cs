@@ -9,8 +9,8 @@
 
     public class KeyboardConfig : IGameConfig
     {
+        private readonly HeroGenerator heroGenerator;
         private int heroesNumber;
-        private HeroGenerator heroGenerator;
 
         public KeyboardConfig()
         {
@@ -19,7 +19,6 @@
 
         public List<Hero> GetHeroes()
         {
-
             GetHeroesNumber();
             return heroGenerator.Generate(heroesNumber);
         }
