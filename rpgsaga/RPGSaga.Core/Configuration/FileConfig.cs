@@ -7,11 +7,11 @@
 
     public class FileConfig : IInputConfig
     {
-        private FileService fileService;
+        private readonly FileService fileService;
 
-        public FileConfig(string fileNameToGet, string fileNameToSave = null)
+        public FileConfig(string fileNameToSave = null, string fileNameToGet = null)
         {
-            fileService = new FileService(fileNameToGet, fileNameToSave);
+            fileService = new FileService(fileNameToSave, fileNameToGet);
         }
 
         public List<Hero> GetHeroes()

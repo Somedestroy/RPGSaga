@@ -7,10 +7,10 @@
     public class FileService
     {
         private const string PathToFolder = @"JSON";
-        private HeroDesirialization heroDesirialization;
-        private HeroSerialization heroSerialization;
+        private readonly HeroDesirialization heroDesirialization;
+        private readonly HeroSerialization heroSerialization;
 
-        public FileService(string fileNameToSave, string fileNameToGet = null)
+        public FileService(string fileNameToSave = null, string fileNameToGet = null)
         {
             heroDesirialization = new HeroDesirialization();
             heroSerialization = new HeroSerialization();

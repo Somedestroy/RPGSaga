@@ -2,7 +2,6 @@
 {
     using System;
     using RpgSaga.Configuration;
-    using RpgSaga.Interfaces;
     using Xunit;
 
     public class ArgumentProcessorTests
@@ -15,12 +14,11 @@
         public void SelectedConfigIsCorrect(string argument, string value, string configType, bool needToSave)
         {
             string[] args = { argument, value };
-            ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
-            IInputConfig gameConfig = null;
+            ArgumentsProcessor argumentProcessor = new ();
 
-            var result = argumentProcessor.GetConfig(args, ref gameConfig);
+            var result = argumentProcessor.GetConfig(args);
 
-            Assert.True(gameConfig.GetType().Name == configType && result == needToSave);
+            Assert.True(result.Item1.GetType().Name == configType && result.Item2 == needToSave);
         }
 
         [Theory]
@@ -29,12 +27,11 @@
         public void SelectConfigWithMixedArgs(string firstArgument, string firstValue, string secondArgument, string secondValue, string configType, bool needToSave)
         {
             string[] args = { firstArgument, firstValue, secondArgument, secondValue };
-            ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
-            IInputConfig gameConfig = null;
+            ArgumentsProcessor argumentProcessor = new ();
 
-            var result = argumentProcessor.GetConfig(args, ref gameConfig);
+            var result = argumentProcessor.GetConfig(args);
 
-            Assert.True(gameConfig.GetType().Name == configType && result == needToSave);
+            Assert.True(result.Item1.GetType().Name == configType && result.Item2 == needToSave);
         }
 
         [Theory]
@@ -42,12 +39,11 @@
         public void SelectConfigIfArgsEmpty(string configType, bool needToSave)
         {
             string[] args = Array.Empty<string>();
-            ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
-            IInputConfig gameConfig = null;
+            ArgumentsProcessor argumentProcessor = new ();
 
-            var result = argumentProcessor.GetConfig(args, ref gameConfig);
+            var result = argumentProcessor.GetConfig(args);
 
-            Assert.True(gameConfig.GetType().Name == configType && result == needToSave);
+            Assert.True(result.Item1.GetType().Name == configType && result.Item2 == needToSave);
         }
 
         [Theory]
@@ -57,12 +53,11 @@
         public void Incorrect(string argument, string value)
         {
             string[] args = { argument, value };
-            ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
-            IInputConfig gameConfig = null;
+            ArgumentsProcessor argumentProcessor = new ();
 
-            Action action = () => argumentProcessor.GetConfig(args, ref gameConfig);
+            void Action() => argumentProcessor.GetConfig(args);
 
-            Assert.Throws<ArgumentException>(action);
+            Assert.Throws<ArgumentException>(Action);
         }
     }
 }

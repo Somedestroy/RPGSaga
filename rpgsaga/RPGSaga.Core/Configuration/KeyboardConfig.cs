@@ -43,6 +43,7 @@
                 Logger.Error("This is not a number! Please try again");
                 inputString = Console.ReadLine();
             }
+
             while (heroesNumber <= 0)
             {
                 Logger.Error("You must enter a positive number");

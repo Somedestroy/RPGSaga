@@ -39,7 +39,7 @@
             if (arguments.Contains("-i"))
             {
                 string fileNameToGet = arguments[arguments.FindIndex(b => b == "-i") + 1];
-                return (new FileConfig(fileNameToGet), false);
+                return (new FileConfig(null, fileNameToGet), false);
             }
 
             if (arguments.Contains("-s"))
