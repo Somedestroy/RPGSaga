@@ -7,51 +7,45 @@
 
     public class ArgumentsProcessor
     {
-        public bool GetConfig(string[] args, ref IInputConfig gameConfig)
+        public (IInputConfig, bool) GetConfig(string[] args)
         {
             List<string> arguments = args.ToList();
 
             if (!arguments.Any())
             {
-                gameConfig = new KeyboardConfig();
-                return false;
+                return (new KeyboardConfig(), false);
             }
 
             if (arguments.Contains("-i") && arguments.Contains("-s"))
             {
                 string fileNameToGet = arguments[arguments.FindIndex(b => b == "-i") + 1];
                 string fileNameToSave = arguments[arguments.FindIndex(b => b == "-s") + 1];
-                gameConfig = new FileConfig(fileNameToGet, fileNameToSave);
-                return true;
+                return (new FileConfig(fileNameToGet, fileNameToSave), true);
             }
 
             if (arguments.Contains("-k") && arguments.Contains("-s"))
             {
                 int numberOfPlayers = int.Parse(arguments[arguments.FindIndex(b => b == "-k") + 1]);
                 string fileNameToSave = arguments[arguments.FindIndex(b => b == "-s") + 1];
-                gameConfig = new ArgsConfig(numberOfPlayers, fileNameToSave);
-                return true;
+                return (new ArgsConfig(numberOfPlayers, fileNameToSave), true);
             }
 
             if (arguments.Contains("-k"))
             {
                 int numberOfHeroes = int.Parse(arguments[arguments.FindIndex(b => b == "-k") + 1]);
-                gameConfig = new ArgsConfig(numberOfHeroes);
-                return false;
+                return (new ArgsConfig(numberOfHeroes), false);
             }
 
             if (arguments.Contains("-i"))
             {
                 string fileNameToGet = arguments[arguments.FindIndex(b => b == "-i") + 1];
-                gameConfig = new FileConfig(fileNameToGet);
-                return false;
+                return (new FileConfig(fileNameToGet), false);
             }
 
             if (arguments.Contains("-s"))
             {
                 string fileNameToSave = arguments[arguments.FindIndex(b => b == "-s") + 1];
-                gameConfig = new KeyboardConfig(fileNameToSave);
-                return true;
+                return (new KeyboardConfig(fileNameToSave), true);
             }
             else
             {

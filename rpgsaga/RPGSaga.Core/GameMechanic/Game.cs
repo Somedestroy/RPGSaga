@@ -22,14 +22,14 @@
 
         public static List<Hero> HeroesList { get; set; }
 
-        public static void Run(IInputConfig gameConfig, bool save)
+        public static void Run((IInputConfig inputConfig, bool save) configTurple)
         {
             try
             {
-                HeroesList = gameConfig.GetHeroes();
-                if (save)
+                HeroesList = configTurple.inputConfig.GetHeroes();
+                if (configTurple.save)
                 {
-                    gameConfig.SaveHeroes(HeroesList);
+                    configTurple.inputConfig.SaveHeroes(HeroesList);
                 }
 
                 round.StartRound(HeroesList);
