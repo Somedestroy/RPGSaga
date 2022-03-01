@@ -72,6 +72,7 @@
         {
             if (!hero1.IsAlive())
             {
+                Logger.Info($"{hero1} died!");
                 Logger.Info($"{hero2} win duel");
                 hero2.Regeneration(secondHP);
                 hero2.RefreshAbilities();
@@ -79,7 +80,8 @@
             }
             else
             {
-                Logger.Info($"{hero1} win duel");
+                Logger.Info($"{hero2} died!");
+                Logger.Info($"{hero1} win duel!");
                 hero1.Regeneration(firstHP);
                 hero1.RefreshAbilities();
                 return hero1;

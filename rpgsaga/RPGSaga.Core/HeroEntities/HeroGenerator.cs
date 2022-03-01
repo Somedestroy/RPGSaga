@@ -44,7 +44,7 @@
                 }
             }
 
-            Logger.Info("Heroes were successfully created");
+            Logger.Info($"{heroesList.Count} heroes were successfully created");
             return heroesList;
         }
 
