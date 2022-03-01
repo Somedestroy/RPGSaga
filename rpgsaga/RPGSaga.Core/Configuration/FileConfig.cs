@@ -5,18 +5,23 @@
     using RpgSaga.Interfaces;
     using RpgSaga.Serialization;
 
-    public class FileConfig : IGameConfig
+    public class FileConfig : IInputConfig
     {
         private FileService fileService;
 
-        public FileConfig()
+        public FileConfig(string fileNameToGet, string fileNameToSave = null)
         {
-            fileService = new FileService();
+            fileService = new FileService(fileNameToGet, fileNameToSave);
         }
 
         public List<Hero> GetHeroes()
         {
             return fileService.GetFile();
+        }
+
+        public void SaveHeroes(List<Hero> heroes)
+        {
+            fileService.SaveFile(heroes);
         }
     }
 }

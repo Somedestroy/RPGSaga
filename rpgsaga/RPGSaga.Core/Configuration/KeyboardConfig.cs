@@ -6,25 +6,36 @@
     using RpgSaga.HeroEntities;
     using RpgSaga.Interfaces;
     using RpgSaga.Logger;
+    using RpgSaga.Serialization;
 
-    public class KeyboardConfig : IGameConfig
+    public class KeyboardConfig : IInputConfig
     {
         private readonly HeroGenerator heroGenerator;
-        private int heroesNumber;
+        private readonly FileService fileService;
 
         public KeyboardConfig()
         {
             heroGenerator = new HeroGenerator();
         }
 
-        public List<Hero> GetHeroes()
+        public KeyboardConfig(string fileNameToSave)
         {
-            GetHeroesNumber();
-            return heroGenerator.Generate(heroesNumber);
+            fileService = new FileService(fileNameToSave);
         }
 
-        private void GetHeroesNumber()
+        public List<Hero> GetHeroes()
         {
+            return heroGenerator.Generate(GetHeroesNumber());
+        }
+
+        public void SaveHeroes(List<Hero> heroes)
+        {
+            fileService.SaveFile(heroes);
+        }
+
+        private int GetHeroesNumber()
+        {
+            int heroesNumber;
             Logger.Info("Enter the number of heroes. Number must be non-zero");
             string inputString = Console.ReadLine();
             while (!int.TryParse(inputString, out heroesNumber))
@@ -32,7 +43,6 @@
                 Logger.Error("This is not a number! Please try again");
                 inputString = Console.ReadLine();
             }
-
             while (heroesNumber <= 0)
             {
                 Logger.Error("You must enter a positive number");
@@ -40,7 +50,7 @@
                 heroesNumber = Convert.ToInt32(inputString);
             }
 
-            heroesNumber = Convert.ToInt32(inputString);
+            return heroesNumber;
         }
     }
 }

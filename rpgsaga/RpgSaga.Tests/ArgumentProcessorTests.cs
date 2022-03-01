@@ -16,9 +16,9 @@
         {
             string[] args = { argument, value };
             ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
-            IGameConfig gameConfig = null;
+            IInputConfig gameConfig = null;
 
-            var result = argumentProcessor.SelectConfig(args, ref gameConfig);
+            var result = argumentProcessor.GetConfig(args, ref gameConfig);
 
             Assert.True(gameConfig.GetType().Name == configType && result == needToSave);
         }
@@ -30,9 +30,9 @@
         {
             string[] args = { firstArgument, firstValue, secondArgument, secondValue };
             ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
-            IGameConfig gameConfig = null;
+            IInputConfig gameConfig = null;
 
-            var result = argumentProcessor.SelectConfig(args, ref gameConfig);
+            var result = argumentProcessor.GetConfig(args, ref gameConfig);
 
             Assert.True(gameConfig.GetType().Name == configType && result == needToSave);
         }
@@ -43,9 +43,9 @@
         {
             string[] args = Array.Empty<string>();
             ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
-            IGameConfig gameConfig = null;
+            IInputConfig gameConfig = null;
 
-            var result = argumentProcessor.SelectConfig(args, ref gameConfig);
+            var result = argumentProcessor.GetConfig(args, ref gameConfig);
 
             Assert.True(gameConfig.GetType().Name == configType && result == needToSave);
         }
@@ -58,9 +58,9 @@
         {
             string[] args = { argument, value };
             ArgumentsProcessor argumentProcessor = new ArgumentsProcessor();
-            IGameConfig gameConfig = null;
+            IInputConfig gameConfig = null;
 
-            Action action = () => argumentProcessor.SelectConfig(args, ref gameConfig);
+            Action action = () => argumentProcessor.GetConfig(args, ref gameConfig);
 
             Assert.Throws<ArgumentException>(action);
         }

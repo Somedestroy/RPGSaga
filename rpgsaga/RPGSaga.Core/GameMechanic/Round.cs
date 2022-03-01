@@ -15,7 +15,7 @@
             sb = new StringBuilder();
         }
 
-        public void CreatePairs(List<Hero> heroesList)
+        public void StartRound(List<Hero> heroesList)
         {
             List<Hero> winnersList = new List<Hero>();
             if (heroesList.Count == 1)
@@ -48,7 +48,7 @@
             }
 
             Game.RoundCounter++;
-            CreatePairs(winnersList);
+            StartRound(winnersList);
         }
     }
 }

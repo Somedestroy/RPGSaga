@@ -8,9 +8,9 @@
     {
         public static void Main(string[] args)
         {
-            IGameConfig gameConfig = null;
+            IInputConfig gameConfig = null;
             ArgumentsProcessor argumentsProcessor = new ArgumentsProcessor();
-            var save = argumentsProcessor.SelectConfig(args, ref gameConfig);
+            var save = argumentsProcessor.GetConfig(args, ref gameConfig);
             Game.Run(gameConfig, save);
         }
     }

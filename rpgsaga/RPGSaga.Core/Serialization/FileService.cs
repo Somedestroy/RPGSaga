@@ -10,15 +10,17 @@
         private HeroDesirialization heroDesirialization;
         private HeroSerialization heroSerialization;
 
-        public FileService()
+        public FileService(string fileNameToSave, string fileNameToGet = null)
         {
             heroDesirialization = new HeroDesirialization();
             heroSerialization = new HeroSerialization();
+            FileNameToSave = fileNameToSave;
+            FileNameToGet = fileNameToGet;
         }
 
-        public static string FileNameToSave { get; set; }
+        public string FileNameToSave { get; set; }
 
-        public static string FileNameToGet { get; set; }
+        public string FileNameToGet { get; set; }
 
         public void SaveFile(List<Hero> heroesList)
         {

@@ -3,8 +3,10 @@
     using System.Collections.Generic;
     using RPGSaga.Core;
 
-    public interface IGameConfig
+    public interface IInputConfig
     {
         List<Hero> GetHeroes();
+
+        void SaveHeroes(List<Hero> heroes);
     }
 }

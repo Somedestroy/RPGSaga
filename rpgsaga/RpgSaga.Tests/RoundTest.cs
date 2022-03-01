@@ -18,7 +18,7 @@
             var listOfHeroes = heroGenerator.Generate(numberOfHeroes);
 
             // Act
-            round.CreatePairs(listOfHeroes);
+            round.StartRound(listOfHeroes);
 
             // Assert
             Assert.True(listOfHeroes.Count == 0);

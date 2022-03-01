@@ -4,16 +4,13 @@
     using System.Collections.Generic;
     using RpgSaga.Interfaces;
     using RpgSaga.Logger;
-    using RpgSaga.Serialization;
 
     public static class Game
     {
         private static Round round;
-        private static FileService fileService;
 
         static Game()
         {
-            fileService = new FileService();
             Rand = new Random();
             round = new Round();
             RoundCounter = 1;
@@ -25,17 +22,17 @@
 
         public static List<Hero> HeroesList { get; set; }
 
-        public static void Run(IGameConfig gameConfig, bool save)
+        public static void Run(IInputConfig gameConfig, bool save)
         {
             try
             {
                 HeroesList = gameConfig.GetHeroes();
                 if (save)
                 {
-                    fileService.SaveFile(HeroesList);
+                    gameConfig.SaveHeroes(HeroesList);
                 }
 
-                round.CreatePairs(HeroesList);
+                round.StartRound(HeroesList);
             }
             catch (Exception ex)
             {

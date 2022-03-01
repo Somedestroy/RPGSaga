@@ -20,14 +20,6 @@
             rand = new Random();
         }
 
-        public enum HeroTypes
-        {
-            Knight = 0,
-            Wizard = 1,
-            Archer = 2,
-            FailedHero = 3,
-        }
-
         public List<Hero> Generate(int heroesNumber)
         {
             var values = Enum.GetValues(typeof(HeroTypes));
@@ -47,6 +39,8 @@
                     case HeroTypes.FailedHero:
                         heroesList.Add(new FailedHero(namesGenerator.GetHeroName(), rand.Next(115, 140), rand.Next(17, 40)));
                         break;
+                    default:
+                        throw new ArgumentException($"Unsupported type of hero was found.");
                 }
             }
 

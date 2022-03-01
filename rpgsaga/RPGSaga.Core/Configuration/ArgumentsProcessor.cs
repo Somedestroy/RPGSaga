@@ -4,11 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using RpgSaga.Interfaces;
-    using RpgSaga.Serialization;
 
     public class ArgumentsProcessor
     {
-        public bool SelectConfig(string[] args, ref IGameConfig gameConfig)
+        public bool GetConfig(string[] args, ref IInputConfig gameConfig)
         {
             List<string> arguments = args.ToList();
 
@@ -20,17 +19,17 @@
 
             if (arguments.Contains("-i") && arguments.Contains("-s"))
             {
-                FileService.FileNameToGet = arguments[arguments.FindIndex(b => b == "-i") + 1];
-                FileService.FileNameToSave = arguments[arguments.FindIndex(b => b == "-s") + 1];
-                gameConfig = new FileConfig();
+                string fileNameToGet = arguments[arguments.FindIndex(b => b == "-i") + 1];
+                string fileNameToSave = arguments[arguments.FindIndex(b => b == "-s") + 1];
+                gameConfig = new FileConfig(fileNameToGet, fileNameToSave);
                 return true;
             }
 
             if (arguments.Contains("-k") && arguments.Contains("-s"))
             {
                 int numberOfPlayers = int.Parse(arguments[arguments.FindIndex(b => b == "-k") + 1]);
-                FileService.FileNameToSave = arguments[arguments.FindIndex(b => b == "-s") + 1];
-                gameConfig = new ArgsConfig(numberOfPlayers);
+                string fileNameToSave = arguments[arguments.FindIndex(b => b == "-s") + 1];
+                gameConfig = new ArgsConfig(numberOfPlayers, fileNameToSave);
                 return true;
             }
 
@@ -43,15 +42,15 @@
 
             if (arguments.Contains("-i"))
             {
-                FileService.FileNameToGet = arguments[arguments.FindIndex(b => b == "-i") + 1];
-                gameConfig = new FileConfig();
+                string fileNameToGet = arguments[arguments.FindIndex(b => b == "-i") + 1];
+                gameConfig = new FileConfig(fileNameToGet);
                 return false;
             }
 
             if (arguments.Contains("-s"))
             {
-                FileService.FileNameToSave = arguments[arguments.FindIndex(b => b == "-s") + 1];
-                gameConfig = new KeyboardConfig();
+                string fileNameToSave = arguments[arguments.FindIndex(b => b == "-s") + 1];
+                gameConfig = new KeyboardConfig(fileNameToSave);
                 return true;
             }
             else
