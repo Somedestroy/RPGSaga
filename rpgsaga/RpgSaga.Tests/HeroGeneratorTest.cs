@@ -11,10 +11,10 @@
         public void GenerateHeroesIsCorrect()
         {
             HeroGenerator heroGenerator = new HeroGenerator();
-            List<Hero> heroesList = new List<Hero>();
+            _ = new List<Hero>();
             int heroesNumber = 104;
 
-            heroesList = heroGenerator.Generate(heroesNumber);
+            List<Hero> heroesList = heroGenerator.Generate(heroesNumber);
 
             Assert.Equal(heroesNumber, heroesList.Count);
         }

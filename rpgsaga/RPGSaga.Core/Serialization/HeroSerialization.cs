@@ -1,7 +1,7 @@
 ﻿namespace RpgSaga.Serialization
 {
     using System.Collections.Generic;
-    using Newtonsoft.Json;
+    using System.Text.Json;
     using RPGSaga.Core;
     using RpgSaga.HeroEntities;
 
@@ -17,7 +17,7 @@
         public string Serialize(List<Hero> heroesList)
         {
             var heroesDTO = heroGenerator.GenerateDTO(heroesList);
-            return JsonConvert.SerializeObject(heroesDTO);
+            return JsonSerializer.Serialize(heroesDTO);
         }
     }
 }
