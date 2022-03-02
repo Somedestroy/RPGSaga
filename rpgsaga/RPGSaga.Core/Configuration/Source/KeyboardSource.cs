@@ -6,31 +6,19 @@
     using RpgSaga.HeroEntities;
     using RpgSaga.Interfaces;
     using RpgSaga.Logger;
-    using RpgSaga.Serialization;
 
-    public class KeyboardConfig : IInputConfig
+    public class KeyboardSource : IHeroSource
     {
         private readonly HeroGenerator heroGenerator;
-        private readonly FileService fileService;
 
-        public KeyboardConfig()
+        public KeyboardSource()
         {
             heroGenerator = new HeroGenerator();
-        }
-
-        public KeyboardConfig(string fileNameToSave)
-        {
-            fileService = new FileService(fileNameToSave);
         }
 
         public List<Hero> GetHeroes()
         {
             return heroGenerator.Generate(GetHeroesNumber());
-        }
-
-        public void SaveHeroes(List<Hero> heroes)
-        {
-            fileService.SaveFile(heroes);
         }
 
         private int GetHeroesNumber()

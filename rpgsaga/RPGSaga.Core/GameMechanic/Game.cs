@@ -22,16 +22,12 @@
 
         public static List<Hero> HeroesList { get; set; }
 
-        public static void Run((IInputConfig inputConfig, bool save) configTurple)
+        public static void Run(IHeroDestination heroDestination, IHeroSource heroSource)
         {
             try
             {
-                HeroesList = configTurple.inputConfig.GetHeroes();
-                if (configTurple.save)
-                {
-                    configTurple.inputConfig.SaveHeroes(HeroesList);
-                }
-
+                HeroesList = heroSource.GetHeroes();
+                heroDestination.SaveHeroes(HeroesList);
                 round.StartRound(HeroesList);
             }
             catch (Exception ex)

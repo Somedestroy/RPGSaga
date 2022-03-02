@@ -1,61 +1,49 @@
 ﻿namespace RpgSaga.Tests
 {
     using System;
+    using System.Collections.Generic;
     using RpgSaga.Configuration;
     using Xunit;
 
     public class ArgumentProcessorTests
     {
         [Theory]
-        [InlineData("-i", "filename.json", "FileConfig", false)]
-        [InlineData("-k", "45", "ArgsConfig", false)]
-        [InlineData("-s", "filename.json", "KeyboardConfig", true)]
+        [InlineData("-i", "filename.json", "FileSource", "DummyHeroDestination")]
+        [InlineData("-k", "45", "ArgsHeroSource", "DummyHeroDestination")]
+        [InlineData("-s", "filename.json", "KeyboardSource", "FileDestination")]
 
-        public void SelectedConfigIsCorrect(string argument, string value, string configType, bool needToSave)
+        public void BuildHeroSourceCorrect(string argument, string value, string configType, string destination)
         {
-            string[] args = { argument, value };
+            List<string> args = new List<string>() { argument, value };
             ArgumentsProcessor argumentProcessor = new ();
 
-            var result = argumentProcessor.GetConfig(args);
+            var heroSource = argumentProcessor.BuildHeroSource(args);
+            var heroDestination = argumentProcessor.BuildHeroDestination(args);
 
-            Assert.True(result.Item1.GetType().Name == configType && result.Item2 == needToSave);
+            Assert.True(heroSource.GetType().Name == configType && heroDestination.GetType().Name == destination);
         }
 
         [Theory]
-        [InlineData("-i", "filename.json", "-s", "filename.json", "FileConfig", true)]
-        [InlineData("-k", "34", "-s", "filename.json", "ArgsConfig", true)]
-        public void SelectConfigWithMixedArgs(string firstArgument, string firstValue, string secondArgument, string secondValue, string configType, bool needToSave)
+        [InlineData("-k", "34", "-s", "filename.json", "ArgsHeroSource", "FileDestination")]
+        public void GetConfigWithMixedArgs(string firstArgument, string firstValue, string secondArgument, string secondValue, string configType, string destination)
         {
-            string[] args = { firstArgument, firstValue, secondArgument, secondValue };
+            List<string> args = new List<string>() { firstArgument, firstValue, secondArgument, secondValue };
             ArgumentsProcessor argumentProcessor = new ();
 
-            var result = argumentProcessor.GetConfig(args);
+            var heroSource = argumentProcessor.BuildHeroSource(args);
+            var heroDestination = argumentProcessor.BuildHeroDestination(args);
 
-            Assert.True(result.Item1.GetType().Name == configType && result.Item2 == needToSave);
+            Assert.True(heroSource.GetType().Name == configType && heroDestination.GetType().Name == destination);
         }
 
         [Theory]
-        [InlineData("KeyboardConfig", false)]
-        public void SelectConfigIfArgsEmpty(string configType, bool needToSave)
+        [InlineData("-f", "34")]
+        public void BuildHeroSourceException(string argument, string value)
         {
-            string[] args = Array.Empty<string>();
+            List<string> args = new List<string>() { argument, value };
             ArgumentsProcessor argumentProcessor = new ();
 
-            var result = argumentProcessor.GetConfig(args);
-
-            Assert.True(result.Item1.GetType().Name == configType && result.Item2 == needToSave);
-        }
-
-        [Theory]
-        [InlineData("-l", "filename.json")]
-        [InlineData("-3", "filename.json")]
-        [InlineData("-/", "filename.json")]
-        public void Incorrect(string argument, string value)
-        {
-            string[] args = { argument, value };
-            ArgumentsProcessor argumentProcessor = new ();
-
-            void Action() => argumentProcessor.GetConfig(args);
+            void Action() => argumentProcessor.BuildHeroSource(args);
 
             Assert.Throws<ArgumentException>(Action);
         }

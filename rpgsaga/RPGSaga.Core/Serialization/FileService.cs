@@ -9,29 +9,25 @@
         private const string PathToFolder = @"JSON";
         private readonly HeroDesirialization heroDesirialization;
         private readonly HeroSerialization heroSerialization;
+        private readonly string fileName;
 
-        public FileService(string fileNameToSave = null, string fileNameToGet = null)
+        public FileService(string fileName)
         {
             heroDesirialization = new HeroDesirialization();
             heroSerialization = new HeroSerialization();
-            FileNameToSave = fileNameToSave;
-            FileNameToGet = fileNameToGet;
+            this.fileName = fileName;
         }
-
-        public string FileNameToSave { get; set; }
-
-        public string FileNameToGet { get; set; }
 
         public void SaveFile(List<Hero> heroesList)
         {
-            string fullPath = PathToFolder + @"\" + FileNameToSave;
+            string fullPath = PathToFolder + @"\" + fileName;
             var file = heroSerialization.Serialize(heroesList);
             File.WriteAllText(fullPath, file);
         }
 
         public List<Hero> GetFile()
         {
-            string fullPath = PathToFolder + @"\" + FileNameToGet;
+            string fullPath = PathToFolder + @"\" + fileName;
             return heroDesirialization.Desirialization(File.ReadAllText(fullPath));
         }
     }
