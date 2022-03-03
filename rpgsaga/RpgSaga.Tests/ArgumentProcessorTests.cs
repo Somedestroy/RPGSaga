@@ -47,5 +47,18 @@
 
             Assert.Throws<ArgumentException>(Action);
         }
+
+        [Theory]
+        [InlineData("KeyboardSource", "DummyHeroDestination")]
+        public void EmptyArrayArgs(string configType, string destination)
+        {
+            List<string> args = new List<string>();
+            ArgumentsProcessor argumentsProcessor = new ArgumentsProcessor();
+
+            var heroSource = argumentsProcessor.BuildHeroSource(args);
+            var heroDestination = argumentsProcessor.BuildHeroDestination(args);
+
+            Assert.Equal(heroSource.GetType().Name == configType, heroDestination.GetType().Name == destination);
+        }
     }
 }
