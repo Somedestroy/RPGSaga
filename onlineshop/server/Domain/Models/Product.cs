@@ -5,5 +5,17 @@
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public string Producer { get; set; }
+
+        public int CategoryId { get; set; }
+
+        public string Category { get; set; }
+
+        public int Width { get; set; }
+
+        public int Profile { get; set; }
+
+        public int Diameter { get; set; }
     }
 }
