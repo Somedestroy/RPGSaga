@@ -1,6 +1,7 @@
 ﻿namespace RPGSaga.Core
 {
     using System.Collections.Generic;
+
     public class NamesGenerator
     {
         private readonly List<string> heroesNames = new List<string>()

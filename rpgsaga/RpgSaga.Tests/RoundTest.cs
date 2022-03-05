@@ -2,6 +2,7 @@
 {
     using System;
     using RPGSaga.Core;
+    using RpgSaga.HeroEntities;
     using Xunit;
 
     public class RoundTest
@@ -12,11 +13,12 @@
             // Arange
             Round round = new Round();
             Random rand = new Random();
+            HeroGenerator heroGenerator = new HeroGenerator();
             int numberOfHeroes = rand.Next(1, 100);
-            var listOfHeroes = Game.CreateRandomHeroes(numberOfHeroes);
+            var listOfHeroes = heroGenerator.Generate(numberOfHeroes);
 
             // Act
-            round.CreatePairs(listOfHeroes);
+            round.StartRound(listOfHeroes);
 
             // Assert
             Assert.True(listOfHeroes.Count == 0);

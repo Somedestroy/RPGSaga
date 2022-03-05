@@ -7,7 +7,7 @@
     public class BurningArrows : BaseAbility
     {
         public BurningArrows(string abilityName, int damage, int probablity, int numberOfUse)
-            : base (abilityName, damage, probablity, numberOfUse)
+            : base(abilityName, damage, probablity, numberOfUse)
         {
             AvailableEffects = new List<IEffect> { new Burning("Burning", 1, 15, false, false) };
         }

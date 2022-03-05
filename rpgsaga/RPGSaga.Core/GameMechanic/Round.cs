@@ -7,7 +7,7 @@
     public class Round
     {
         private Duel duel;
-        private readonly StringBuilder sb;
+        private StringBuilder sb;
 
         public Round()
         {
@@ -15,7 +15,7 @@
             sb = new StringBuilder();
         }
 
-        public void CreatePairs(List<Hero> heroesList)
+        public void StartRound(List<Hero> heroesList)
         {
             List<Hero> winnersList = new List<Hero>();
             if (heroesList.Count == 1)
@@ -31,6 +31,10 @@
                 heroesList.RemoveAt(extraHero);
             }
 
+            sb.Append($"\nRound {Game.RoundCounter}");
+            Logger.Info(sb.ToString());
+            sb.Clear();
+
             while (heroesList.Count != 0)
             {
                 int firstIndex = Game.Rand.Next(0, heroesList.Count);
@@ -43,7 +47,8 @@
                 winnersList.Add(duel.StartDuel(firstHero, secondHero));
             }
 
-            CreatePairs(winnersList);
+            Game.RoundCounter++;
+            StartRound(winnersList);
         }
     }
 }

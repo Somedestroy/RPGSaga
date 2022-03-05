@@ -7,6 +7,5 @@
         public FailedHeroException(string data)
         {
         }
-
     }
 }

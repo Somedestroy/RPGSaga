@@ -8,6 +8,10 @@
 
     public abstract class Hero
     {
+        public Hero()
+        {
+        }
+
         public Hero(string name, int healthPoint, int damage)
         {
             Name = name;
@@ -33,7 +37,7 @@
         {
             this.SkipTurn = false;
             HealthPoints -= enemyHero.Damage;
-            Logger.Info($"{enemyHero} deals {enemyHero.Damage} to {ToString()}");
+            Logger.Info($"{enemyHero} HP: {enemyHero.HealthPoints} deals {enemyHero.Damage} to {ToString()}");
         }
 
         public bool IsAlive()

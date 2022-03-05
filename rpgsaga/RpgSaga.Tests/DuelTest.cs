@@ -11,7 +11,7 @@
             // Arrange
             Hero hero1 = new Knight("Brad Pitt", 140, 15);
             Hero hero2 = new Wizard("Russel Crowl", 0, 20);
-            Duel duel = new Duel();
+            Duel duel = new ();
 
             // Act
             var result = duel.StartDuel(hero1, hero2);
