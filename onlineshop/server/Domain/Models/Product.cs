@@ -16,7 +16,7 @@
         public string Producer { get; set; }
 
         [Required]
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
 
         [Required]
         public string Category { get; set; }
@@ -30,6 +30,7 @@
         [Required]
         public int Diameter { get; set; }
 
+        [Required]
         [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
     }
