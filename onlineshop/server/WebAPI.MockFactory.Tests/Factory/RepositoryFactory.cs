@@ -1,9 +1,7 @@
 ﻿namespace WebAPI.MockFactory.Tests.Factory
 {
-    using CleanArchitecture.Infra.Data.Repositories;
-
     using Domain.Repository;
-
+    using Infrastructure.Repository;
     using WebAPI.MockFactory.Tests.Factory.Interfaces;
 
     public class RepositoryFactory : IRepositoryFactory
@@ -15,9 +13,14 @@
             _repositoryContextFactory = repositoryContextFactory;
         }
 
+        public IRepositoryWrapper CreateRepositoryWrapper()
+        {
+            return new RepositoryWrapper(_repositoryContextFactory.CreateDatabaseContext());
+        }
+
         public IProductRepository CreateProductRepository()
         {
-            return new ProductRepository(_repositoryContextFactory.CreateDatabaseContext());
+            return CreateRepositoryWrapper().ProductRepository;
         }
     }
 }

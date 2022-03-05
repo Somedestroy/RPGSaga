@@ -2,9 +2,9 @@ namespace WebApi
 {
     using Application.Interfaces;
     using Application.Services;
-    using CleanArchitecture.Infra.Data.Repositories;
     using Domain.Repository;
     using Infrastructure.EF;
+    using Infrastructure.Repository;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -34,8 +34,8 @@ namespace WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
 
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IServiceManager, ServiceManager>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

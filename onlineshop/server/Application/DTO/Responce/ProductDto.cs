@@ -9,6 +9,7 @@
         {
             this.Id = product.Id;
             this.Name = product.Name;
+            this.Producer = product.Producer;
             this.Category = product.Category;
             this.Width = product.Width;
             this.Profile = product.Diameter;
