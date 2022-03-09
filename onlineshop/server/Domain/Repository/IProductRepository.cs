@@ -1,12 +1,22 @@
 ﻿namespace Domain.Repository
 {
-    using System.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Domain.Models;
 
-    public interface IProductRepository
+    public interface IProductRepository : IRepositoryBase<Product>
     {
-        IQueryable<Product> GetProducts();
+        Task<IEnumerable<Product>> GetProductsAsync();
 
-        Product InsertProduct(Product product);
+        Task<Product> GetProductByIdAsync(Guid productId);
+
+        Task<Product> GetProductWithDetailsAsync(Guid productId);
+
+        void InsertProduct(Product product);
+
+        void UpdateProduct(Product product);
+
+        void DeleteProduct(Product product);
     }
 }

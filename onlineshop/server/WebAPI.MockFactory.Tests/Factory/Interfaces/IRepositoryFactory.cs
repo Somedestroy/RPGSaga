@@ -4,6 +4,8 @@
 
     public interface IRepositoryFactory
     {
+        IRepositoryWrapper CreateRepositoryWrapper();
+
         IProductRepository CreateProductRepository();
     }
 }

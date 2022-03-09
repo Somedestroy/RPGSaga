@@ -1,30 +1,54 @@
 ﻿namespace CleanArchitecture.Infra.Data.Repositories
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Domain.Models;
     using Domain.Repository;
     using Infrastructure.EF;
+    using Infrastructure.Repository;
     using Microsoft.EntityFrameworkCore;
 
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : RepositoryBase<Product>, IProductRepository
     {
-        private DatabaseContext context;
-
-        public ProductRepository(DatabaseContext context)
+        public ProductRepository(DatabaseContext databaseContext)
+            : base(databaseContext)
         {
-            this.context = context;
         }
 
-        public Product InsertProduct(Product product)
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            var entity = context.Add(product);
-            context.SaveChanges();
-            return entity.Entity;
+            return await FindAll()
+                .OrderBy(b => b.Name)
+                .ToListAsync();
         }
 
-        IQueryable<Product> IProductRepository.GetProducts()
+        public async Task<Product> GetProductByIdAsync(Guid productId)
         {
-            return context.Products.AsNoTracking();
+            return await FindByCondition(product => product.Id.Equals(productId))
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<Product> GetProductWithDetailsAsync(Guid productId)
+        {
+            return await FindByCondition(product => product.Id.Equals(productId))
+                .FirstOrDefaultAsync();
+        }
+
+        public void InsertProduct(Product product)
+        {
+            Create(product);
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            Update(product);
+        }
+
+        public void DeleteProduct(Product product)
+        {
+            Delete(product);
         }
     }
 }

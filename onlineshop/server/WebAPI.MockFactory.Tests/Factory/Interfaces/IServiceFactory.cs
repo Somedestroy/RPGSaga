@@ -4,6 +4,8 @@
 
     public interface IServiceFactory
     {
+        IServiceManager CreateServiceManager();
+
         IProductService CreateProductService();
     }
 }

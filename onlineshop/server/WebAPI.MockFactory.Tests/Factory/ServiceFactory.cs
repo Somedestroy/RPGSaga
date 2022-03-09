@@ -14,9 +14,14 @@
             _repositoryFactory = repositoryFactory;
         }
 
+        public IServiceManager CreateServiceManager()
+        {
+            return new ServiceManager(_repositoryFactory.CreateRepositoryWrapper());
+        }
+
         public IProductService CreateProductService()
         {
-            return new ProductService(_repositoryFactory.CreateProductRepository());
+            return new ProductService(_repositoryFactory.CreateRepositoryWrapper());
         }
     }
 }

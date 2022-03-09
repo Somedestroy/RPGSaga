@@ -1,35 +1,59 @@
 ﻿namespace WebApi.Controllers
 {
-    using System.Collections.Generic;
+    using System;
+    using System.Threading.Tasks;
     using Application.DTO.Request;
     using Application.Interfaces;
-    using Application.ViewModels;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/products")]
     public class ProductsController : ControllerBase
     {
         private readonly ILogger<ProductsController> logger;
-        private IProductService _productService;
+        private IServiceManager _serviceManager;
 
-        public ProductsController(ILogger<ProductsController> logger, IProductService productService)
+        public ProductsController(ILogger<ProductsController> logger, IServiceManager serviceManager)
         {
             this.logger = logger;
-            _productService = productService;
+            _serviceManager = serviceManager;
         }
 
         [HttpGet]
-        public ActionResult<List<ProductDto>> Get()
+        public async Task<ActionResult> Get()
         {
-            return Ok(_productService.GetProducts());
+            var product = await _serviceManager.ProductService.GetProductsAsync();
+            return Ok(product);
+        }
+
+        [HttpGet("{productId:guid}")]
+        public async Task<ActionResult> GetById(Guid productId)
+        {
+            var productDto = await _serviceManager.ProductService.GetByIdAsync(productId);
+            return Ok(productDto);
         }
 
         [HttpPost]
-        public ActionResult<ProductDto> Insert([FromBody] ProductCreateRequestDto product)
+        public async Task<IActionResult> Insert([FromBody] ProductCreateRequestDto product)
         {
-            return this.Ok(_productService.InsetProduct(product));
+            var productDto = await _serviceManager.ProductService.CreateAsync(product);
+            return CreatedAtAction(nameof(GetById), new { productId = productDto.Id }, productDto);
+        }
+
+        [HttpPut("{productId:guid}")]
+        public async Task<IActionResult> Update(Guid productId, [FromBody] ProductUpdateDto product)
+        {
+            await _serviceManager.ProductService.UpdateAsync(productId, product);
+            return NoContent();
+        }
+
+        [HttpDelete("{productId:guid}")]
+
+        public async Task<IActionResult> DeleteProduct(Guid productId)
+        {
+            await _serviceManager.ProductService.DeleteAsync(productId);
+            return NoContent();
         }
     }
 }
