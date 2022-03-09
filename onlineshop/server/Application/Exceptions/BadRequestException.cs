@@ -2,9 +2,9 @@
 {
     using System;
 
-    public class ProductBadRequestException : Exception
+    public class BadRequestException : Exception
     {
-        public ProductBadRequestException(string message)
+        public BadRequestException(string message)
             : base(message)
         {
         }
