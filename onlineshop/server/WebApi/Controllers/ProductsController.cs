@@ -37,6 +37,11 @@
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] ProductCreateRequestDto product)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var productDto = await _serviceManager.ProductService.CreateAsync(product);
             return CreatedAtAction(nameof(GetById), new { productId = productDto.Id }, productDto);
         }
@@ -44,6 +49,11 @@
         [HttpPut("{productId:guid}")]
         public async Task<IActionResult> Update(Guid productId, [FromBody] ProductUpdateDto product)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             await _serviceManager.ProductService.UpdateAsync(productId, product);
             return NoContent();
         }

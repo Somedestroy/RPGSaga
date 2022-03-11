@@ -12,6 +12,7 @@ namespace WebApi
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
+    using WebApi.Middleware;
 
     public class Startup
     {
@@ -36,6 +37,7 @@ namespace WebApi
 
             services.AddScoped<IServiceManager, ServiceManager>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddTransient<ExceptionHandlingMiddleware>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +50,7 @@ namespace WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
 
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseRouting();
 
             app.UseAuthorization();
